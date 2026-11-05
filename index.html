@@ -9,6 +9,8 @@
   --bg: #f3f2ee; --painel: #ffffff; --tinta: #1d1d1b; --tinta2: #55544e; --suave: #6f6e67;
   --linha: #e2e0d9; --cartao: #faf9f6; --vazio: #c4c2b9;
   --botao: #1f5fa8; --botao-hover: #184d8a; --botao-tinta: #ffffff;
+  --marco-bg: #fdecea; --marco-tinta: #b3261e; --marco-linha: #f3b8b2;
+  --alvo-bg: #e9f1fb; --alvo-tinta: #17457d; --alvo-tinta2: #4a6a93; --alvo-linha: #c9dbf2;
   --serie-casos: #1f5fa8; --serie-mosquitos: #2f7a4b; --serie-temperatura: #b5651d;
   --e1-cor: #3a8f5c; --e1-bg: #e6f3ea; --e1-tinta: #1f5a37; --e1-linha: #b9dbc6;
   --e2-cor: #d4a61f; --e2-bg: #fbf3d6; --e2-tinta: #6e5600; --e2-linha: #ecd98f;
@@ -19,6 +21,8 @@
   :root:not([data-theme="light"]) {
     color-scheme: dark;
     --bg: #131312; --painel: #1f1f1e; --tinta: #f0efec; --tinta2: #c3c2b9; --suave: #a3a29a;
+    --marco-bg: #3a1714; --marco-tinta: #ff8f85; --marco-linha: #6b2a25;
+    --alvo-bg: #1a2738; --alvo-tinta: #b5d0f2; --alvo-tinta2: #8eaad0; --alvo-linha: #2d4566;
     --linha: #363633; --cartao: #262624; --vazio: #55544e;
     --botao: #4a90e2; --botao-hover: #3b7fd0; --botao-tinta: #0b0b0b;
     --serie-casos: #6aa9ee; --serie-mosquitos: #62c486; --serie-temperatura: #e3a05c;
@@ -65,7 +69,17 @@ h1 { font-size: 28px; font-weight: 650; margin: 0; letter-spacing: -0.015em; }
 .textos { margin: 16px 0 0; }
 .aviso-entrada { color: var(--tinta2); font-size: 14px; margin: 0; padding: 10px 14px;
   background: var(--cartao); border: 1px solid var(--linha); border-radius: 10px; }
-.feito { color: var(--suave); font-size: 14px; margin: 10px 0 0; }
+.acao-linha { display: flex; align-items: center; gap: 18px; flex-wrap: wrap; }
+.acao-linha .botao-principal { align-self: center; }
+.marco-dados { display: flex; flex-direction: column; background: var(--marco-bg); border: 1px solid var(--marco-linha);
+  border-radius: 12px; padding: 8px 16px 9px; }
+.marco-rotulo { color: var(--marco-tinta); font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: .04em; }
+.marco-data { color: var(--marco-tinta); font-size: 26px; font-weight: 750; line-height: 1.15; }
+.marco-nota { color: var(--tinta2); font-size: 12.5px; }
+.alvo { margin: 10px 0 0; padding: 8px 10px 9px; border-radius: 10px; background: var(--alvo-bg);
+  border: 1px solid var(--alvo-linha); }
+.alvo-rotulo { display: block; color: var(--alvo-tinta2); font-size: 12px; }
+.alvo-data { display: block; color: var(--alvo-tinta); font-size: 16px; font-weight: 700; line-height: 1.25; }
 .chips { display: flex; flex-wrap: wrap; gap: 6px; margin: 0 0 6px; }
 .chip { font: inherit; font-size: 13.5px; font-weight: 500; color: var(--tinta2); background: var(--cartao);
   border: 1px solid var(--linha); border-radius: 999px; padding: 4px 13px; cursor: pointer; }
@@ -123,11 +137,17 @@ h1 { font-size: 28px; font-weight: 650; margin: 0; letter-spacing: -0.015em; }
   <div class="colunas">
     <section class="cartao-grande previsao-cartao" aria-labelledby="titulo-previsao">
       <h2 id="titulo-previsao">Previsão</h2>
-      <button type="button" class="botao-principal" id="gerar">Gerar previsão</button>
+      <div class="acao-linha">
+        <button type="button" class="botao-principal" id="gerar">Gerar previsão</button>
+        <div class="marco-dados" id="marco-dados">
+          <span class="marco-rotulo">Últimos dados válidos</span>
+          <span class="marco-data" id="marco-data">—</span>
+          <span class="marco-nota">As previsões contam a partir desta data.</span>
+        </div>
+      </div>
       <div class="retangulos" id="retangulos" aria-live="polite"></div>
       <div class="textos" aria-live="polite">
         <p class="aviso-entrada oculto" id="aviso-entrada"></p>
-        <p class="feito oculto" id="feito"></p>
       </div>
     </section>
 
@@ -177,6 +197,22 @@ h1 { font-size: 28px; font-weight: 650; margin: 0; letter-spacing: -0.015em; }
   function doisDigitos(numero) { return (numero < 10 ? '0' : '') + numero; }
   function dataCurta(data) { return doisDigitos(data.getDate()) + '/' + doisDigitos(data.getMonth() + 1); }
   function dataCompleta(data) { return dataCurta(data) + '/' + data.getFullYear(); }
+  var MESES_POR_EXTENSO = ['janeiro', 'fevereiro', 'março', 'abril', 'maio', 'junho', 'julho', 'agosto', 'setembro',
+    'outubro', 'novembro', 'dezembro'];
+  function dataPorExtenso(data) {
+    return data.getDate() + ' de ' + MESES_POR_EXTENSO[data.getMonth()] + ' de ' + data.getFullYear();
+  }
+  // "1 a 7 de novembro"; "29 de novembro a 5 de dezembro"; o ano só aparece quando difere do ano dos últimos dados.
+  function semanaPorExtenso(textoDoDomingo, anoDeReferencia) {
+    var domingo = lerData(textoDoDomingo);
+    var sabado = somarDias(domingo, 6);
+    var sufixoDoAno = sabado.getFullYear() !== anoDeReferencia ? ' de ' + sabado.getFullYear() : '';
+    var fim = sabado.getDate() + ' de ' + MESES_POR_EXTENSO[sabado.getMonth()] + sufixoDoAno;
+    if (domingo.getMonth() === sabado.getMonth()) {
+      return domingo.getDate() + ' a ' + fim;
+    }
+    return domingo.getDate() + ' de ' + MESES_POR_EXTENSO[domingo.getMonth()] + ' a ' + fim;
+  }
   function intervaloDaSemana(textoDoDomingo) {
     var domingo = lerData(textoDoDomingo);
     return dataCurta(domingo) + ' a ' + dataCompleta(somarDias(domingo, 6));
@@ -657,7 +693,7 @@ h1 { font-size: 28px; font-weight: 650; margin: 0; letter-spacing: -0.015em; }
     /* hoje: a semana de origem */
     var xHoje = posicaoX(dataEmMs(previsao.origem));
     svgEl('line', { x1: xHoje, x2: xHoje, y1: topo, y2: base, 'class': 'g-hoje' }, svg);
-    svgEl('text', { x: xHoje - 5, y: topo + 11, 'text-anchor': 'end', 'class': 'g-hoje-texto' }, svg).textContent = 'hoje';
+    svgEl('text', { x: xHoje - 5, y: topo + 11, 'text-anchor': 'end', 'class': 'g-hoje-texto' }, svg).textContent = 'últimos dados';
 
     /* previsão (depois do clique) */
     var xsPrevisao = [];
@@ -815,9 +851,13 @@ h1 { font-size: 28px; font-weight: 650; margin: 0; letter-spacing: -0.015em; }
   function montarRetangulo(item) {
     var raiz = elemento('div', 'retangulo');
     raiz.setAttribute('role', 'group');
-    raiz.setAttribute('aria-label', 'Em ' + item.rotulo);
-    raiz.appendChild(elemento('p', 'prazo', 'Em ' + item.rotulo));
-    raiz.appendChild(elemento('p', 'semana', 'semana de ' + intervaloDaSemana(item.semana_alvo)));
+    var anoDosDados = somarDias(lerData(previsao.origem), 6).getFullYear();
+    raiz.setAttribute('aria-label', item.rotulo + ' depois dos últimos dados');
+    raiz.appendChild(elemento('p', 'prazo', item.rotulo + ' depois'));
+    var alvo = elemento('div', 'alvo');
+    alvo.appendChild(elemento('span', 'alvo-rotulo', 'semana prevista'));
+    alvo.appendChild(elemento('span', 'alvo-data', semanaPorExtenso(item.semana_alvo, anoDosDados)));
+    raiz.appendChild(alvo);
     var numero = elemento('p', 'numero vazio', '—');
     var unidade = elemento('p', 'unidade');
     var selo = elemento('span', 'selo oculto');
@@ -845,9 +885,11 @@ h1 { font-size: 28px; font-weight: 650; margin: 0; letter-spacing: -0.015em; }
     linhaDosAlertas.textContent = 'Alertas: ' + item.reconhecidas_avaliacao + ' de ' + item.semanas_alerta_avaliacao;
     retangulo.confianca.appendChild(linhaDoErro);
     retangulo.confianca.appendChild(linhaDosAlertas);
-    retangulo.raiz.setAttribute('aria-label', 'Em ' + item.rotulo + ', semana de ' + intervaloDaSemana(item.semana_alvo) + ': ' +
+    retangulo.raiz.setAttribute('aria-label', item.rotulo + ' depois dos últimos dados, semana de ' + intervaloDaSemana(item.semana_alvo) + ': ' +
       textoDeCasos(casos) + ' confirmados previstos, estágio ' + item.estagio + '.');
   }
+  document.getElementById('marco-data').textContent = dataPorExtenso(somarDias(lerData(previsao.origem), 6));
+
   (function montarRetangulos() {
     var recipiente = document.getElementById('retangulos');
     for (var i = 0; i < previsao.horizontes.length; i += 1) {
@@ -865,9 +907,6 @@ h1 { font-size: 28px; font-weight: 650; margin: 0; letter-spacing: -0.015em; }
         ' casos foram confirmados no Sinan; a previsão parte desse histórico.';
       aviso.classList.remove('oculto');
     }
-    var feito = document.getElementById('feito');
-    feito.textContent = 'Previsão feita a partir da semana de ' + intervaloDaSemana(previsao.origem) + '.';
-    feito.classList.remove('oculto');
     previsaoGerada = true;
     desenharPatamares();
   });
