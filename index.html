@@ -14,6 +14,8 @@
   --alvo-bg: #e9f1fb; --alvo-tinta: #17457d; --alvo-tinta2: #4a6a93; --alvo-linha: #c9dbf2;
   --serie-casos: #1f5fa8; --serie-mosquitos: #2f7a4b; --serie-temperatura: #b5651d; --serie-umidade: #7a56b0;
   --serie-pressao: #5b6770;
+  --ano-1: #eb6834; --ano-2: #1baf7a; --ano-3: #eda100; --ano-4: #e87ba4; --ano-5: #008300; --ano-6: #6250d6;
+  --ano-7: #e34948; --ano-8: #8a8a84;
   --e1-cor: #3a8f5c; --e1-bg: #e6f3ea; --e1-tinta: #1f5a37; --e1-linha: #b9dbc6;
   --e2-cor: #d4a61f; --e2-bg: #fbf3d6; --e2-tinta: #6e5600; --e2-linha: #ecd98f;
   --e3-cor: #e07f2f; --e3-bg: #fde8d4; --e3-tinta: #8a4210; --e3-linha: #f1c49a;
@@ -30,6 +32,8 @@
     --botao: #4a90e2; --botao-hover: #3b7fd0; --botao-tinta: #0b0b0b;
     --serie-casos: #6aa9ee; --serie-mosquitos: #62c486; --serie-temperatura: #e3a05c; --serie-umidade: #b79be6;
     --serie-pressao: #9fb0bd;
+    --ano-1: #d95926; --ano-2: #199e70; --ano-3: #c98500; --ano-4: #d55181; --ano-5: #2ea02e; --ano-6: #9085e9;
+    --ano-7: #e66767; --ano-8: #a3a29a;
     --e1-cor: #4cb07a; --e1-bg: #1d3a2a; --e1-tinta: #a8e0c0; --e1-linha: #2f5c45;
     --e2-cor: #e0b93a; --e2-bg: #3d3410; --e2-tinta: #f0dc8a; --e2-linha: #62541c;
     --e3-cor: #ee9650; --e3-bg: #4a2a12; --e3-tinta: #f6c89c; --e3-linha: #7a4620;
@@ -45,7 +49,7 @@ body { margin: 0; background: var(--bg); color: var(--tinta);
 /* ---------- barra superior ---------- */
 .barra { position: sticky; top: 0; z-index: 20; background: var(--barra-bg); color: var(--barra-tinta);
   border-bottom: 1px solid var(--barra-linha); }
-.barra-miolo { max-width: 1400px; margin: 0 auto; padding: 10px 40px; display: flex; align-items: center;
+.barra-miolo { max-width: 1840px; margin: 0 auto; padding: 10px 40px; display: flex; align-items: center;
   justify-content: space-between; gap: 12px 24px; flex-wrap: wrap; }
 .marca { display: flex; align-items: center; gap: 14px; min-width: 0; }
 .logo { display: block; height: 36px; width: auto; max-width: 140px; object-fit: contain; flex: none; }
@@ -61,22 +65,26 @@ body { margin: 0; background: var(--bg); color: var(--tinta);
 .aba[aria-selected="true"] { color: var(--barra-tinta); font-weight: 650; border-bottom-color: var(--barra-aba-ativa); }
 .aba:focus-visible { outline: 3px solid #ffffff; outline-offset: -3px; }
 
-main { max-width: 1400px; margin: 0 auto; padding: 28px 40px 40px; }
+main { max-width: 1840px; margin: 0 auto; padding: 18px 40px 24px; }
 .painel-aba[hidden] { display: none; }
-.colunas { display: grid; grid-template-columns: minmax(0, 52fr) minmax(0, 48fr); gap: 24px; align-items: stretch; }
 .cartao-grande { background: var(--painel); border: 1px solid var(--linha); border-radius: 14px; padding: 24px 24px 22px;
   box-shadow: 0 1px 2px rgba(0,0,0,.04); }
 .cartao-grande h2 { font-size: 17px; font-weight: 650; margin: 0 0 14px; }
-.previsao-cartao { container-type: inline-size; display: flex; flex-direction: column; }
-.patamares-cartao { display: flex; flex-direction: column; }
+.previsao-cartao { container-type: inline-size; margin: 14px 0 0; }
+.controles { display: flex; align-items: stretch; flex-wrap: wrap; gap: 14px 28px; padding: 14px 20px; }
+.controles .botao-principal { align-self: center; }
+.controles .modelo-bloco { margin: 0; flex: 1 1 420px; min-width: 0; align-self: center; }
+.patamares-cartao { display: flex; flex-direction: column; margin-top: 14px; padding: 16px 22px 14px; }
+.cabeca-patamares { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 22px; margin: 0 0 8px; }
+.cabeca-patamares h2 { margin: 0; }
 .botao-principal { font: inherit; font-weight: 600; font-size: 16px; color: var(--botao-tinta); background: var(--botao);
   border: 0; border-radius: 10px; padding: 12px 26px; cursor: pointer; align-self: flex-start; }
 .botao-principal:hover { background: var(--botao-hover); }
 .botao-principal:focus-visible, .chip:focus-visible { outline: 3px solid var(--botao); outline-offset: 2px; }
 
 /* ---------- retângulos: linhas compartilhadas (subgrid) ---------- */
-.retangulos { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); column-gap: 12px; row-gap: 12px; margin: 20px 0 0; }
-.retangulo { background: var(--cartao); border: 1px solid var(--linha); border-radius: 12px; padding: 14px 12px 12px;
+.retangulos { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); column-gap: 14px; row-gap: 12px; margin: 0; }
+.retangulo { background: var(--painel); border: 1px solid var(--linha); border-radius: 12px; padding: 10px 14px 10px;
   display: flex; flex-direction: column; min-width: 0; }
 @supports (grid-template-rows: subgrid) {
   .retangulos { grid-template-rows: repeat(6, auto); row-gap: 0; }
@@ -96,39 +104,38 @@ main { max-width: 1400px; margin: 0 auto; padding: 28px 40px 40px; }
 .retangulo > .linha-selo { grid-row: 5; }
 .retangulo > .confianca { grid-row: 6; }
 .prazo { font-weight: 650; margin: 0; font-size: 15px; }
-.numero { font-size: clamp(32px, 7cqi, 44px); font-weight: 650; line-height: 1.1; margin: 0; padding-top: 12px;
+.numero { font-size: clamp(32px, 5cqi, 40px); font-weight: 650; line-height: 1.1; margin: 0; padding-top: 6px;
   font-variant-numeric: tabular-nums; }
 .numero.vazio { color: var(--vazio); font-weight: 400; }
-.unidade { color: var(--tinta2); font-size: 13px; margin: 2px 0 10px; min-height: 19px; }
-.linha-selo { min-height: 28px; }
+.unidade { color: var(--tinta2); font-size: 13px; margin: 0 0 6px; min-height: 19px; }
+.linha-selo { min-height: 26px; }
 .selo { display: inline-block; font-size: 13px; font-weight: 600; padding: 3px 10px; border-radius: 999px; border: 1px solid;
   line-height: 1.4; }
 .selo.e1 { background: var(--e1-bg); color: var(--e1-tinta); border-color: var(--e1-linha); }
 .selo.e2 { background: var(--e2-bg); color: var(--e2-tinta); border-color: var(--e2-linha); }
 .selo.e3 { background: var(--e3-bg); color: var(--e3-tinta); border-color: var(--e3-linha); }
 .selo.e4 { background: var(--e4-bg); color: var(--e4-tinta); border-color: var(--e4-linha); }
-.confianca { align-self: end; min-height: 52px; color: var(--suave); font-size: 12px; margin: 10px 0 0; padding-top: 10px;
+.confianca { align-self: end; min-height: 46px; color: var(--suave); font-size: 12px; margin: 6px 0 0; padding-top: 6px;
   line-height: 1.4; }
 .confianca.cheia { border-top: 1px solid var(--linha); }
-.alvo { margin: 10px 0 0; padding: 8px 10px 9px; border-radius: 10px; background: var(--alvo-bg);
+.alvo { margin: 6px 0 0; padding: 5px 10px 6px; border-radius: 10px; background: var(--alvo-bg);
   border: 1px solid var(--alvo-linha); }
 .alvo-rotulo { display: block; color: var(--alvo-tinta2); font-size: 12px; }
 .alvo-data { display: block; color: var(--alvo-tinta); font-size: 16px; font-weight: 700; line-height: 1.25; }
-.textos { margin: 16px 0 0; }
-.modelo-bloco { margin: 18px 0 0; }
+.textos { margin: 10px 0 0; }
+.modelo-bloco { margin: 0; }
 .modelo-rotulo { display: block; color: var(--tinta2); font-size: 13px; font-weight: 600; margin: 0 0 6px; }
 .modelo-bloco .chips { margin: 0 0 8px; }
 .modelo-descricoes { display: grid; }
 .modelo-descricao { grid-area: 1 / 1; margin: 0; color: var(--suave); font-size: 13px; line-height: 1.4; }
 .modelo-descricao.inativa { visibility: hidden; }
-.aviso-entrada { color: var(--tinta2); font-size: 14px; margin: 0; padding: 10px 14px;
-  background: var(--cartao); border: 1px solid var(--linha); border-radius: 10px; }
-.acao-linha { display: flex; align-items: center; gap: 18px; flex-wrap: wrap; }
-.acao-linha .botao-principal { align-self: center; }
+.aviso-entrada { color: var(--tinta2); font-size: 14px; margin: 0; padding: 7px 14px;
+  background: var(--painel); border: 1px solid var(--linha); border-radius: 10px; }
+.aviso-entrada.invisivel { visibility: hidden; }
 .marco-dados { display: flex; flex-direction: column; background: var(--marco-bg); border: 1px solid var(--marco-linha);
-  border-radius: 12px; padding: 8px 16px 9px; }
+  border-radius: 12px; padding: 6px 16px 7px; }
 .marco-rotulo { color: var(--marco-tinta); font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: .04em; }
-.marco-data { color: var(--marco-tinta); font-size: 26px; font-weight: 750; line-height: 1.15; }
+.marco-data { color: var(--marco-tinta); font-size: 24px; font-weight: 750; line-height: 1.15; }
 .marco-nota { color: var(--tinta2); font-size: 12.5px; line-height: 1.4; }
 
 /* ---------- gráficos ---------- */
@@ -161,31 +168,27 @@ main { max-width: 1400px; margin: 0 auto; padding: 28px 40px 40px; }
 .g-hoje-texto { fill: var(--tinta2); font-size: 11px; font-weight: 600; font-family: inherit; }
 .g-faixa-texto { font-size: 12px; font-weight: 600; font-family: inherit; }
 .g-rotulo { fill: var(--tinta); font-size: 11.5px; font-weight: 600; font-family: inherit; }
-.g-previsao { fill: none; stroke: var(--serie-casos); stroke-width: 1.25; stroke-dasharray: 3 3; opacity: .7; }
 .dica { position: absolute; top: 0; z-index: 2; pointer-events: none; background: var(--painel); color: var(--tinta);
   border: 1px solid var(--linha); border-radius: 8px; padding: 6px 9px; font-size: 12.5px; line-height: 1.35;
   box-shadow: 0 2px 8px rgba(0,0,0,.15); white-space: nowrap; font-variant-numeric: tabular-nums; }
 .dica .d { color: var(--suave); }
 .dica .v { font-weight: 600; }
-.situacao { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 10px; margin: 0 0 8px; color: var(--tinta2); font-size: 15px; }
-.situacao-detalhe { flex-basis: 100%; font-size: 13.5px; color: var(--suave); }
+.situacao { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 10px; margin: 0; color: var(--tinta2); font-size: 15px; }
+.situacao-detalhe { font-size: 13.5px; color: var(--suave); }
 .nota-patamares { color: var(--suave); font-size: 12.5px; margin: 10px 0 0; line-height: 1.45; }
 .nota-usa { color: var(--suave); font-size: 13px; margin: 2px 0 0; }
 .area-patamares { flex: 1 1 auto; min-height: 300px; }
-.curva-cartao { display: flex; flex-direction: column; }
-.area-curva { flex: 1 1 auto; min-height: 300px; }
-.legenda-curva { display: flex; flex-wrap: wrap; gap: 4px 18px; margin: 0 0 8px; color: var(--tinta2); font-size: 13px; line-height: 1.4; }
-.legenda-item { display: inline-flex; align-items: center; }
-.legenda-traco { display: inline-block; width: 22px; height: 0; margin-right: 7px; border-top: 3px solid var(--botao); flex: none; }
-.legenda-traco.comparacao { border-top: 2px dashed var(--suave); }
-.dica .legenda-traco { width: 14px; margin-right: 6px; vertical-align: middle; }
-.nota-curva { color: var(--suave); font-size: 12.5px; margin: 10px 0 0; line-height: 1.45; min-height: 18px; }
-.g-curva-escolhida { stroke: var(--botao); stroke-width: 2.25; }
-.g-curva-comparada { stroke: var(--suave); stroke-width: 1.75; stroke-dasharray: 6 4; }
-.g-curva-ponto-escolhido { fill: var(--botao); }
-.g-curva-ponto-comparado { fill: var(--suave); }
-.g-rotulo-curva { paint-order: stroke; stroke: var(--painel); stroke-width: 3px; stroke-linejoin: round; }
-.g-texto-vazio { font-size: 13px; }
+.chips-patamares { margin: 0 0 6px; }
+.chip-serie { display: inline-flex; align-items: center; gap: 7px; }
+.chip-serie .amostra { display: inline-block; width: 20px; height: 0; border-top: 3px solid var(--cor); opacity: .4; flex: none; }
+.chip-serie .amostra.tracejada { border-top-style: dashed; }
+.chip-serie[aria-pressed="true"] { background: var(--cartao); color: var(--tinta); font-weight: 650; border-color: var(--cor);
+  box-shadow: inset 0 0 0 1px var(--cor); }
+.chip-serie[aria-pressed="true"] .amostra { opacity: 1; }
+.dica .amostra { display: inline-block; width: 14px; height: 0; border-top: 3px solid var(--cor); margin-right: 6px; vertical-align: middle; }
+.dica .amostra.tracejada { border-top-style: dashed; }
+.g-previsao-linha { stroke-dasharray: 7 5; }
+.g-rotulo-previsao { paint-order: stroke; stroke: var(--painel); stroke-width: 3px; stroke-linejoin: round; }
 
 /* ---------- aba Como funciona ---------- */
 .fluxo { display: flex; align-items: stretch; justify-content: center; gap: 0; max-width: 1000px; margin: 0 auto 36px;
@@ -215,18 +218,18 @@ main { max-width: 1400px; margin: 0 auto; padding: 28px 40px 40px; }
 
 .rodape { color: var(--suave); font-size: 13px; margin: 22px 0 0; text-align: center; }
 .oculto { display: none; }
-@media (max-width: 1100px) {
-  .colunas { grid-template-columns: minmax(0, 1fr); }
-}
 @media (max-width: 1000px) {
   .graficos-grade { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 @media (max-width: 700px) {
   .barra-miolo { padding: 10px 16px 0; }
   .abas { width: 100%; }
-  .aba { flex: 1 1 0; text-align: center; white-space: nowrap; font-size: 14.5px; padding: 9px 8px 6px; }
-  main { padding: 20px 16px 32px; }
+  .abas { gap: 2px; }
+  .aba { flex: 1 1 0; min-width: 0; text-align: center; font-size: 13.5px; padding: 9px 4px 6px; line-height: 1.25; }
+  main { padding: 16px 16px 28px; }
   .cartao-grande { padding: 18px 14px 16px; }
+  .controles { padding: 14px; }
+  .patamares-cartao { padding: 16px 12px 14px; }
   .titulo-site { font-size: 16px; }
   .fluxo { flex-direction: column; }
   .seta { align-self: center; width: 14px; height: 30px; }
@@ -261,6 +264,8 @@ main { max-width: 1400px; margin: 0 auto; padding: 28px 40px 40px; }
           aria-selected="false" tabindex="-1" data-aba="como-funciona">Como funciona</button>
         <button type="button" class="aba" role="tab" id="aba-gerar-previsao" aria-controls="painel-gerar-previsao"
           aria-selected="true" tabindex="0" data-aba="gerar-previsao">Gerar previsão</button>
+        <button type="button" class="aba" role="tab" id="aba-dados-do-modelo" aria-controls="painel-dados-do-modelo"
+          aria-selected="false" tabindex="-1" data-aba="dados-do-modelo">Dados do modelo</button>
       </div>
     </nav>
   </div>
@@ -268,46 +273,42 @@ main { max-width: 1400px; margin: 0 auto; padding: 28px 40px 40px; }
 
 <main>
   <div class="painel-aba" id="painel-gerar-previsao" role="tabpanel" aria-labelledby="aba-gerar-previsao">
-    <div class="colunas">
-      <section class="cartao-grande previsao-cartao" aria-labelledby="titulo-previsao">
-        <h2 id="titulo-previsao">Previsão</h2>
-        <div class="acao-linha">
-          <button type="button" class="botao-principal" id="gerar">Gerar previsão</button>
-          <div class="marco-dados" id="marco-dados">
-            <span class="marco-rotulo">Últimos dados válidos</span>
-            <span class="marco-data" id="marco-data">—</span>
-            <span class="marco-nota">As previsões contam a partir desta data.</span>
-            <span class="marco-nota" id="marco-sinan">—</span>
-          </div>
-        </div>
-        <div class="modelo-bloco">
-          <span class="modelo-rotulo" id="rotulo-modelo">Modelo</span>
-          <div class="chips" id="modelos" role="group" aria-labelledby="rotulo-modelo"></div>
-          <div class="modelo-descricoes" id="modelo-descricoes"></div>
-        </div>
-        <div class="retangulos" id="retangulos" aria-live="polite"></div>
-        <div class="textos" aria-live="polite">
-          <p class="aviso-entrada oculto" id="aviso-entrada"></p>
-        </div>
-      </section>
+    <section class="cartao-grande controles" aria-label="Controles da previsão">
+      <button type="button" class="botao-principal" id="gerar">Gerar previsão</button>
+      <div class="marco-dados" id="marco-dados">
+        <span class="marco-rotulo">Últimos dados válidos</span>
+        <span class="marco-data" id="marco-data">—</span>
+        <span class="marco-nota">As previsões contam a partir desta data.</span>
+        <span class="marco-nota" id="marco-sinan">—</span>
+      </div>
+      <div class="modelo-bloco">
+        <span class="modelo-rotulo" id="rotulo-modelo">Modelo</span>
+        <div class="chips" id="modelos" role="group" aria-labelledby="rotulo-modelo"></div>
+        <div class="modelo-descricoes" id="modelo-descricoes"></div>
+      </div>
+    </section>
 
-      <section class="cartao-grande curva-cartao" id="curva" aria-labelledby="titulo-curva">
-        <h2 id="titulo-curva">Previsão × ano anterior</h2>
-        <div class="legenda-curva" id="legenda-curva"></div>
-        <div class="area area-curva" id="area-curva"></div>
-        <p class="nota-curva" id="nota-curva"></p>
-      </section>
-    </div>
+    <section class="previsao-cartao" aria-label="Previsão por prazo">
+      <div class="retangulos" id="retangulos" aria-live="polite"></div>
+      <div class="textos" aria-live="polite">
+        <p class="aviso-entrada invisivel" id="aviso-entrada"></p>
+      </div>
+    </section>
 
-      <section class="cartao-grande patamares-cartao" id="patamares" style="margin-top:24px" aria-labelledby="titulo-patamares">
+    <section class="cartao-grande patamares-cartao" id="patamares" aria-labelledby="titulo-patamares">
+      <div class="cabeca-patamares">
         <h2 id="titulo-patamares">Patamares do plano municipal</h2>
         <p class="situacao" id="situacao"></p>
-        <div class="area area-patamares" id="area-patamares"></div>
-        <p class="nota-patamares">Faixas fixas de incidência do Plano Municipal de Contingência 2026. O estágio oficial também
-          considera outros critérios (ver "Como funciona").</p>
-      </section>
+      </div>
+      <div class="chips chips-patamares" id="chips-patamares" role="group" aria-label="Curvas do gráfico"></div>
+      <div class="area area-patamares" id="area-patamares"></div>
+      <p class="nota-patamares">Faixas fixas de incidência do Plano Municipal de Contingência 2026. O estágio oficial também
+        considera outros critérios (ver "Como funciona").</p>
+    </section>
+  </div>
 
-    <section class="cartao-grande" id="usa" style="margin-top:24px" aria-labelledby="titulo-usa">
+  <div class="painel-aba" id="painel-dados-do-modelo" role="tabpanel" aria-labelledby="aba-dados-do-modelo" hidden>
+    <section class="cartao-grande" id="usa" aria-labelledby="titulo-usa">
       <h2 id="titulo-usa">O que o modelo usa</h2>
       <div class="chips" id="chips" role="group" aria-label="Período dos gráficos"></div>
       <div class="graficos-grade" id="graficos"></div>
@@ -379,7 +380,7 @@ main { max-width: 1400px; margin: 0 auto; padding: 28px 40px 40px; }
   <p class="rodape">Modelo em pesquisa (mestrado PPGC/UFRGS) · não é previsão oficial.</p>
 </main>
 
-<script id="previsao" type="application/json">{"data_de_referencia":"2026-11-05","origem":"2026-10-25","dados_ate":{"captura":"2026-10-25","clima":"2026-10-25","casos_extracao":"2026-10-02"},"limiar_alerta":447.06540347378046,"modelos":[{"chave":"composto","nome":"Modelo do projeto","descricao":"Alterna entre as variantes A e B, pela que errou menos nas 13 semanas anteriores."},{"chave":"folha5","nome":"Variante A","descricao":"Árvores mais detalhadas: cada folha reúne pelo menos 5 semanas de treino."},{"chave":"folha20","nome":"Variante B","descricao":"Árvores mais suaves: cada folha reúne pelo menos 20 semanas de treino."},{"chave":"regua_sazonal","nome":"Repetir o ano anterior","descricao":"Usa os casos da mesma semana do ano passado."},{"chave":"persistencia","nome":"Repetir a semana atual","descricao":"Usa os casos da última semana com dados."}],"horizontes":[{"h":1,"rotulo":"1 semana","semana_alvo":"2026-11-01","variante_do_composto":"folha5","por_modelo":{"composto":{"previsto":-0.018235259671612,"estagio":"Normalidade","acima_do_alerta":false,"mae_avaliacao":102.33247728213615,"semanas_alerta_avaliacao":24,"reconhecidas_avaliacao":23,"mae_referencia_avaliacao":202.1078431372549},"folha5":{"previsto":-0.018235259671612,"estagio":"Normalidade","acima_do_alerta":false,"mae_avaliacao":97.98708193004315,"semanas_alerta_avaliacao":24,"reconhecidas_avaliacao":23,"mae_referencia_avaliacao":202.1078431372549},"folha20":{"previsto":0.24217379286216248,"estagio":"Normalidade","acima_do_alerta":false,"mae_avaliacao":133.6259070330219,"semanas_alerta_avaliacao":24,"reconhecidas_avaliacao":24,"mae_referencia_avaliacao":202.1078431372549},"regua_sazonal":{"previsto":4.0,"estagio":"Normalidade","acima_do_alerta":false,"mae_avaliacao":202.1078431372549,"semanas_alerta_avaliacao":24,"reconhecidas_avaliacao":17,"mae_referencia_avaliacao":202.1078431372549},"persistencia":{"previsto":0.0,"estagio":"Normalidade","acima_do_alerta":false,"mae_avaliacao":83.29411764705883,"semanas_alerta_avaliacao":24,"reconhecidas_avaliacao":22,"mae_referencia_avaliacao":202.1078431372549}}},{"h":4,"rotulo":"1 mês","semana_alvo":"2026-11-22","variante_do_composto":"folha5","por_modelo":{"composto":{"previsto":0.7928838949418929,"estagio":"Normalidade","acima_do_alerta":false,"mae_avaliacao":205.72625957865395,"semanas_alerta_avaliacao":27,"reconhecidas_avaliacao":26,"mae_referencia_avaliacao":213.1764705882353},"folha5":{"previsto":0.7928838949418929,"estagio":"Normalidade","acima_do_alerta":false,"mae_avaliacao":219.6692347506603,"semanas_alerta_avaliacao":27,"reconhecidas_avaliacao":26,"mae_referencia_avaliacao":213.1764705882353},"folha20":{"previsto":1.5153056589885323,"estagio":"Normalidade","acima_do_alerta":false,"mae_avaliacao":199.63518360553894,"semanas_alerta_avaliacao":27,"reconhecidas_avaliacao":27,"mae_referencia_avaliacao":213.1764705882353},"regua_sazonal":{"previsto":2.0,"estagio":"Normalidade","acima_do_alerta":false,"mae_avaliacao":213.1764705882353,"semanas_alerta_avaliacao":27,"reconhecidas_avaliacao":20,"mae_referencia_avaliacao":213.1764705882353},"persistencia":{"previsto":0.0,"estagio":"Normalidade","acima_do_alerta":false,"mae_avaliacao":278.95098039215685,"semanas_alerta_avaliacao":27,"reconhecidas_avaliacao":19,"mae_referencia_avaliacao":213.1764705882353}}},{"h":8,"rotulo":"2 meses","semana_alvo":"2026-12-20","variante_do_composto":"folha5","por_modelo":{"composto":{"previsto":0.8989225205241247,"estagio":"Normalidade","acima_do_alerta":false,"mae_avaliacao":233.50646118987868,"semanas_alerta_avaliacao":28,"reconhecidas_avaliacao":23,"mae_referencia_avaliacao":216.16666666666666},"folha5":{"previsto":0.8989225205241247,"estagio":"Normalidade","acima_do_alerta":false,"mae_avaliacao":272.6266744147025,"semanas_alerta_avaliacao":28,"reconhecidas_avaliacao":18,"mae_referencia_avaliacao":216.16666666666666},"folha20":{"previsto":0.5758631540361885,"estagio":"Normalidade","acima_do_alerta":false,"mae_avaliacao":223.18272015579177,"semanas_alerta_avaliacao":28,"reconhecidas_avaliacao":24,"mae_referencia_avaliacao":216.16666666666666},"regua_sazonal":{"previsto":1.0,"estagio":"Normalidade","acima_do_alerta":false,"mae_avaliacao":216.16666666666666,"semanas_alerta_avaliacao":28,"reconhecidas_avaliacao":21,"mae_referencia_avaliacao":216.16666666666666},"persistencia":{"previsto":0.0,"estagio":"Normalidade","acima_do_alerta":false,"mae_avaliacao":530.9705882352941,"semanas_alerta_avaliacao":28,"reconhecidas_avaliacao":12,"mae_referencia_avaliacao":216.16666666666666}}},{"h":12,"rotulo":"3 meses","semana_alvo":"2027-01-17","variante_do_composto":"folha5","por_modelo":{"composto":{"previsto":0.30209370343804653,"estagio":"Normalidade","acima_do_alerta":false,"mae_avaliacao":260.1356284077855,"semanas_alerta_avaliacao":28,"reconhecidas_avaliacao":12,"mae_referencia_avaliacao":217.7843137254902},"folha5":{"previsto":0.30209370343804653,"estagio":"Normalidade","acima_do_alerta":false,"mae_avaliacao":278.8175469066808,"semanas_alerta_avaliacao":28,"reconhecidas_avaliacao":11,"mae_referencia_avaliacao":217.7843137254902},"folha20":{"previsto":2.216513554737098,"estagio":"Normalidade","acima_do_alerta":false,"mae_avaliacao":243.76452770203178,"semanas_alerta_avaliacao":28,"reconhecidas_avaliacao":14,"mae_referencia_avaliacao":217.7843137254902},"regua_sazonal":{"previsto":1.0,"estagio":"Normalidade","acima_do_alerta":false,"mae_avaliacao":217.7843137254902,"semanas_alerta_avaliacao":28,"reconhecidas_avaliacao":21,"mae_referencia_avaliacao":217.7843137254902},"persistencia":{"previsto":0.0,"estagio":"Normalidade","acima_do_alerta":false,"mae_avaliacao":697.4901960784314,"semanas_alerta_avaliacao":28,"reconhecidas_avaliacao":4,"mae_referencia_avaliacao":217.7843137254902}}}],"curva":{"semanas_alvo":["2026-11-01","2026-11-08","2026-11-15","2026-11-22","2026-11-29","2026-12-06","2026-12-13","2026-12-20","2026-12-27","2027-01-03","2027-01-10","2027-01-17"],"por_modelo":{"composto":{"previsto":[-0.018235259671612,0.29381708507196125,0.5036637351378879,0.7928838949418929,2.0726622435654884,0.7876519688640246,1.6154582215518762,0.8989225205241247,2.1775863871476013,-0.22931888654009983,2.7270889124392848,0.30209370343804653],"mae_avaliacao":[102.33247728213615,185.6635020330247,198.37550467018357,205.72625957865395,220.5266426623597,226.44432706334183,245.33465189264516,233.50646118987868,254.80853159256574,250.89806198885887,268.19207241945156,260.1356284077855],"variante":["folha5","folha5","folha5","folha5","folha20","folha20","folha20","folha5","folha20","folha5","folha5","folha5"]},"folha5":{"previsto":[-0.018235259671612,0.29381708507196125,0.5036637351378879,0.7928838949418929,1.4779321256922766,1.0742604141665635,2.00606541650803,0.8989225205241247,0.6545263097570926,-0.22931888654009983,2.7270889124392848,0.30209370343804653],"mae_avaliacao":[97.98708193004315,161.9592828472556,185.21415968018596,219.6692347506603,217.67416392029247,262.69308401923695,249.7368031945706,272.6266744147025,284.1746747041617,280.56058027664096,292.10881518624666,278.8175469066808]},"folha20":{"previsto":[0.24217379286216248,0.4210422598370943,0.10198007471941205,1.5153056589885323,2.0726622435654884,0.7876519688640246,1.6154582215518762,0.5758631540361885,2.1775863871476013,1.377218850375151,3.7331405712567234,2.216513554737098],"mae_avaliacao":[133.6259070330219,191.6345749786114,203.29313945151677,199.63518360553894,225.41995796438434,221.52719642188765,232.37280312096723,223.18272015579177,234.7832492622613,236.7644819485484,241.60254989844415,243.76452770203178]},"regua_sazonal":{"previsto":[4.0,0.0,5.0,2.0,3.0,2.0,1.0,1.0,0.0,2.0,0.0,1.0],"mae_avaliacao":[202.1078431372549,202.41176470588235,211.77450980392157,213.1764705882353,213.64705882352942,213.7843137254902,214.14705882352942,216.16666666666666,217.2941176470588,217.40196078431373,217.64705882352942,217.7843137254902]},"persistencia":{"previsto":[0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"mae_avaliacao":[83.29411764705883,153.45098039215685,214.55882352941177,278.95098039215685,343.2549019607843,405.4019607843137,468.3137254901961,530.9705882352941,585.5,624.2450980392157,667.6274509803922,697.4901960784314]}}},"contexto_casos_2026":{"fichas":3493,"confirmadas":21,"inconclusivas":3412,"em_aberto":60},"series":{"datas":["2018-02-18","2018-02-25","2018-03-04","2018-03-11","2018-03-18","2018-03-25","2018-04-01","2018-04-08","2018-04-15","2018-04-22","2018-04-29","2018-05-06","2018-05-13","2018-05-20","2018-05-27","2018-06-03","2018-06-10","2018-06-17","2018-06-24","2018-07-01","2018-07-08","2018-07-15","2018-07-22","2018-07-29","2018-08-05","2018-08-12","2018-08-19","2018-08-26","2018-09-02","2018-09-09","2018-09-16","2018-09-23","2018-09-30","2018-10-07","2018-10-14","2018-10-21","2018-10-28","2018-11-04","2018-11-11","2018-11-18","2018-11-25","2018-12-02","2018-12-09","2018-12-16","2018-12-23","2018-12-30","2019-01-06","2019-01-13","2019-01-20","2019-01-27","2019-02-03","2019-02-10","2019-02-17","2019-02-24","2019-03-03","2019-03-10","2019-03-17","2019-03-24","2019-03-31","2019-04-07","2019-04-14","2019-04-21","2019-04-28","2019-05-05","2019-05-12","2019-05-19","2019-05-26","2019-06-02","2019-06-09","2019-06-16","2019-06-23","2019-06-30","2019-07-07","2019-07-14","2019-07-21","2019-07-28","2019-08-04","2019-08-11","2019-08-18","2019-08-25","2019-09-01","2019-09-08","2019-09-15","2019-09-22","2019-09-29","2019-10-06","2019-10-13","2019-10-20","2019-10-27","2019-11-03","2019-11-10","2019-11-17","2019-11-24","2019-12-01","2019-12-08","2019-12-15","2019-12-22","2019-12-29","2020-01-05","2020-01-12","2020-01-19","2020-01-26","2020-02-02","2020-02-09","2020-02-16","2020-02-23","2020-03-01","2020-03-08","2020-03-15","2020-03-22","2020-03-29","2020-04-05","2020-04-12","2020-04-19","2020-04-26","2020-05-03","2020-05-10","2020-05-17","2020-05-24","2020-05-31","2020-06-07","2020-06-14","2020-06-21","2020-06-28","2020-07-05","2020-07-12","2020-07-19","2020-07-26","2020-08-02","2020-08-09","2020-08-16","2020-08-23","2020-08-30","2020-09-06","2020-09-13","2020-09-20","2020-09-27","2020-10-04","2020-10-11","2020-10-18","2020-10-25","2020-11-01","2020-11-08","2020-11-15","2020-11-22","2020-11-29","2020-12-06","2020-12-13","2020-12-20","2020-12-27","2021-01-03","2021-01-10","2021-01-17","2021-01-24","2021-01-31","2021-02-07","2021-02-14","2021-02-21","2021-02-28","2021-03-07","2021-03-14","2021-03-21","2021-03-28","2021-04-04","2021-04-11","2021-04-18","2021-04-25","2021-05-02","2021-05-09","2021-05-16","2021-05-23","2021-05-30","2021-06-06","2021-06-13","2021-06-20","2021-06-27","2021-07-04","2021-07-11","2021-07-18","2021-07-25","2021-08-01","2021-08-08","2021-08-15","2021-08-22","2021-08-29","2021-09-05","2021-09-12","2021-09-19","2021-09-26","2021-10-03","2021-10-10","2021-10-17","2021-10-24","2021-10-31","2021-11-07","2021-11-14","2021-11-21","2021-11-28","2021-12-05","2021-12-12","2021-12-19","2021-12-26","2022-01-02","2022-01-09","2022-01-16","2022-01-23","2022-01-30","2022-02-06","2022-02-13","2022-02-20","2022-02-27","2022-03-06","2022-03-13","2022-03-20","2022-03-27","2022-04-03","2022-04-10","2022-04-17","2022-04-24","2022-05-01","2022-05-08","2022-05-15","2022-05-22","2022-05-29","2022-06-05","2022-06-12","2022-06-19","2022-06-26","2022-07-03","2022-07-10","2022-07-17","2022-07-24","2022-07-31","2022-08-07","2022-08-14","2022-08-21","2022-08-28","2022-09-04","2022-09-11","2022-09-18","2022-09-25","2022-10-02","2022-10-09","2022-10-16","2022-10-23","2022-10-30","2022-11-06","2022-11-13","2022-11-20","2022-11-27","2022-12-04","2022-12-11","2022-12-18","2022-12-25","2023-01-01","2023-01-08","2023-01-15","2023-01-22","2023-01-29","2023-02-05","2023-02-12","2023-02-19","2023-02-26","2023-03-05","2023-03-12","2023-03-19","2023-03-26","2023-04-02","2023-04-09","2023-04-16","2023-04-23","2023-04-30","2023-05-07","2023-05-14","2023-05-21","2023-05-28","2023-06-04","2023-06-11","2023-06-18","2023-06-25","2023-07-02","2023-07-09","2023-07-16","2023-07-23","2023-07-30","2023-08-06","2023-08-13","2023-08-20","2023-08-27","2023-09-03","2023-09-10","2023-09-17","2023-09-24","2023-10-01","2023-10-08","2023-10-15","2023-10-22","2023-10-29","2023-11-05","2023-11-12","2023-11-19","2023-11-26","2023-12-03","2023-12-10","2023-12-17","2023-12-24","2023-12-31","2024-01-07","2024-01-14","2024-01-21","2024-01-28","2024-02-04","2024-02-11","2024-02-18","2024-02-25","2024-03-03","2024-03-10","2024-03-17","2024-03-24","2024-03-31","2024-04-07","2024-04-14","2024-04-21","2024-04-28","2024-05-05","2024-05-12","2024-05-19","2024-05-26","2024-06-02","2024-06-09","2024-06-16","2024-06-23","2024-06-30","2024-07-07","2024-07-14","2024-07-21","2024-07-28","2024-08-04","2024-08-11","2024-08-18","2024-08-25","2024-09-01","2024-09-08","2024-09-15","2024-09-22","2024-09-29","2024-10-06","2024-10-13","2024-10-20","2024-10-27","2024-11-03","2024-11-10","2024-11-17","2024-11-24","2024-12-01","2024-12-08","2024-12-15","2024-12-22","2024-12-29","2025-01-05","2025-01-12","2025-01-19","2025-01-26","2025-02-02","2025-02-09","2025-02-16","2025-02-23","2025-03-02","2025-03-09","2025-03-16","2025-03-23","2025-03-30","2025-04-06","2025-04-13","2025-04-20","2025-04-27","2025-05-04","2025-05-11","2025-05-18","2025-05-25","2025-06-01","2025-06-08","2025-06-15","2025-06-22","2025-06-29","2025-07-06","2025-07-13","2025-07-20","2025-07-27","2025-08-03","2025-08-10","2025-08-17","2025-08-24","2025-08-31","2025-09-07","2025-09-14","2025-09-21","2025-09-28","2025-10-05","2025-10-12","2025-10-19","2025-10-26","2025-11-02","2025-11-09","2025-11-16","2025-11-23","2025-11-30","2025-12-07","2025-12-14","2025-12-21","2025-12-28","2026-01-04","2026-01-11","2026-01-18","2026-01-25","2026-02-01","2026-02-08","2026-02-15","2026-02-22","2026-03-01","2026-03-08","2026-03-15","2026-03-22","2026-03-29","2026-04-05","2026-04-12","2026-04-19","2026-04-26","2026-05-03","2026-05-10","2026-05-17","2026-05-24","2026-05-31","2026-06-07","2026-06-14","2026-06-21","2026-06-28","2026-07-05","2026-07-12","2026-07-19","2026-07-26","2026-08-02","2026-08-09","2026-08-16","2026-08-23","2026-08-30","2026-09-06","2026-09-13","2026-09-20","2026-09-27","2026-10-04","2026-10-11","2026-10-18","2026-10-25"],"casos":[1.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,2.0,1.0,0.0,0.0,1.0,1.0,1.0,5.0,7.0,8.0,18.0,22.0,21.0,53.0,45.0,38.0,47.0,64.0,47.0,20.0,11.0,16.0,22.0,18.0,10.0,1.0,2.0,0.0,0.0,1.0,1.0,0.0,0.0,1.0,0.0,0.0,0.0,3.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,1.0,2.0,4.0,2.0,3.0,3.0,2.0,1.0,4.0,4.0,3.0,1.0,0.0,1.0,2.0,3.0,1.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,2.0,0.0,1.0,0.0,1.0,1.0,9.0,12.0,12.0,8.0,7.0,9.0,5.0,0.0,1.0,1.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,1.0,0.0,2.0,0.0,1.0,2.0,9.0,20.0,51.0,203.0,269.0,463.0,482.0,524.0,753.0,879.0,569.0,344.0,223.0,313.0,122.0,92.0,61.0,17.0,26.0,19.0,14.0,24.0,13.0,11.0,11.0,3.0,3.0,3.0,1.0,2.0,0.0,3.0,0.0,1.0,0.0,1.0,0.0,0.0,6.0,11.0,7.0,9.0,10.0,4.0,0.0,1.0,0.0,3.0,2.0,0.0,2.0,0.0,10.0,7.0,27.0,37.0,93.0,199.0,250.0,360.0,541.0,589.0,581.0,760.0,762.0,540.0,473.0,450.0,225.0,219.0,66.0,76.0,74.0,52.0,32.0,25.0,15.0,18.0,13.0,9.0,9.0,1.0,9.0,3.0,0.0,5.0,5.0,4.0,3.0,7.0,6.0,0.0,3.0,3.0,7.0,3.0,3.0,10.0,9.0,11.0,12.0,30.0,39.0,80.0,156.0,249.0,558.0,1311.0,1227.0,995.0,1109.0,1601.0,1849.0,1783.0,1855.0,1347.0,911.0,1510.0,646.0,520.0,199.0,263.0,277.0,194.0,89.0,22.0,10.0,13.0,22.0,13.0,16.0,13.0,14.0,9.0,7.0,10.0,7.0,3.0,6.0,2.0,3.0,3.0,1.0,2.0,0.0,7.0,4.0,5.0,1.0,1.0,19.0,26.0,32.0,37.0,47.0,75.0,161.0,245.0,383.0,494.0,917.0,1199.0,1801.0,2381.0,2184.0,2247.0,2229.0,2212.0,2159.0,1944.0,1988.0,883.0,579.0,257.0,105.0,50.0,22.0,13.0,7.0,9.0,5.0,4.0,11.0,9.0,4.0,8.0,6.0,3.0,9.0,6.0,7.0,5.0,4.0,8.0,4.0,0.0,5.0,2.0,3.0,2.0,1.0,1.0,0.0,2.0,0.0,1.0,1.0,1.0,1.0,1.0,0.0,1.0,0.0,0.0,0.0,0.0,1.0,0.0,3.0,1.0,1.0,1.0,1.0,0.0,0.0,1.0,1.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,2.0,0.0,0.0,0.0,0.0,null,null,null,null],"mosquitos":[0.4171122994652406,0.5037433155080214,0.5433155080213904,0.5786096256684492,0.6209016393442623,0.3830845771144278,0.2895522388059701,0.543369890329013,0.7506726457399103,0.6617132867132867,0.5349040139616056,0.5235602094240838,0.4458041958041958,0.1765734265734265,0.1633825944170771,0.1551724137931034,0.0779967159277504,0.041871921182266,0.0328407224958949,0.0131362889983579,0.0090311986863711,0.0048732943469785,0.0041084634346754,0.000914913083257,0.0090311986863711,0.0032894736842105,0.0024630541871921,0.0008210180623973,0.0016420361247947,0.0032840722495894,0.0032840722495894,0.0082101806239737,0.028735632183908,0.0426929392446633,0.0500821018062397,0.0829228243021346,0.0763546798029556,0.0878489326765188,0.1075533661740558,0.1091954022988505,0.1529605263157894,0.1822660098522167,0.2049180327868852,0.2059336823734729,0.1728971962616822,0.2029520295202952,0.197841726618705,0.3476263399693721,0.2815829528158295,0.3138105567606652,0.3168963016678752,0.2905308464849354,0.3764367816091954,0.3190578158458244,0.4058514628657164,0.3052180128663331,0.4649184975194897,0.4340974212034384,0.4355524079320113,0.4045102184637068,0.3169864960909737,0.3578047042052744,0.3944610778443114,0.3824160114367405,0.3090007087172218,0.4341359773371104,0.2532005689900427,0.2312588401697312,0.2421652421652421,0.3403298350824588,0.268511593118923,0.1161048689138576,0.0344332855093256,0.0482213438735177,0.0149501661129568,0.0196428571428571,0.0108423686405337,0.0091807909604519,0.0066815144766146,0.0156494522691705,0.0157232704402515,0.0033277870216306,0.0065604498594189,0.0142405063291139,0.0264211369095276,0.0219364599092284,0.0324528301886792,0.0248226950354609,0.0285510349750178,0.0711237553342816,0.0570613409415121,0.1058238636363636,0.1823486506199854,0.1357938718662952,0.1656005685856432,0.1577444682369735,0.1862971516551193,0.1840390879478827,0.2509897070467142,0.2273062730627306,0.2588235294117647,0.3134110787172011,0.3250183418928833,0.3162518301610542,0.3539367181751288,0.2954356846473029,0.2763975155279503,0.3543247344461305,0.3578544061302682,0.2920696324951644,0.3778580024067389,0.3206521739130434,0.2538126361655773,0.2581005586592179,0.3329682365826944,0.3598183881952327,0.2222222222222222,0.1701890989988876,0.0970982142857142,0.1021978021978022,0.0436241610738255,0.0554323725055432,0.1270783847980997,0.035799522673031,0.008827238335435,0.0093959731543624,0.0146666666666666,0.0126742712294043,0.0138713745271122,0.0167664670658682,0.0178784266984505,0.0074441687344913,0.0120643431635388,0.0041379310344827,0.0028490028490028,0.0064020486555697,0.0168612191958495,0.0126760563380281,0.0307692307692307,0.0268741159830268,0.0348387096774193,0.0373230373230373,0.0434782608695652,0.0483091787439613,0.049757281553398,0.1065830721003134,0.0939794419970631,0.2122641509433962,0.3263598326359833,0.3206521739130434,0.418732782369146,0.3248945147679324,0.3223249669749009,0.2907133243606998,0.3092643051771117,0.7240932642487047,0.7313019390581718,0.596100278551532,0.6183006535947713,0.4649006622516556,0.5518102372034956,0.4821648216482165,0.5293398533007335,0.6862026862026862,1.6931407942238268,1.1219806763285023,0.8764434180138568,0.588963963963964,0.3629300776914539,0.2643553629469122,0.157725321888412,0.0980187695516162,0.1120418848167539,0.0785123966942148,0.0246659815005138,0.0124481327800829,0.0102354145342886,0.022,0.0105374077976817,0.010351966873706,0.0,0.0061162079510703,0.0059405940594059,0.0043010752688172,0.01,0.0141242937853107,0.0229357798165137,0.0190677966101694,0.0775,0.0614525139664804,0.0922818791946308,0.15,0.1536050156739812,0.2103559870550161,0.2188782489740082,0.1968085106382978,0.292225201072386,0.342443729903537,0.4619289340101523,0.3908685968819599,0.5638179800221975,0.6541524459613197,0.9621802002224694,0.6906873614190687,0.7056229327453142,0.5534729878721059,0.5411499436302142,0.934589800443459,0.8050660792951542,0.752262443438914,0.6822323462414579,1.096244131455399,0.963677639046538,1.256902761104442,1.339002267573696,1.0311778290993072,0.7681365576102418,0.994904458598726,1.0435897435897437,0.4819277108433735,0.8200692041522492,0.288837744533947,0.2637485970819304,0.1407982261640798,0.0991189427312775,0.0449308755760368,0.0233333333333333,0.0121951219512195,0.0144124168514412,0.0066225165562913,0.0149253731343283,0.0273224043715847,0.0,0.0,0.0,null,0.0662983425414364,0.0481927710843373,0.0402298850574712,0.0263473053892215,0.0250569476082004,0.0156075808249721,0.0194508009153318,0.0324748040313549,0.0493273542600896,0.0718358038768529,0.0432852386237513,0.0686936936936937,0.1097285067873303,0.1452894438138479,0.1428571428571428,0.1698754246885617,0.1430429128738621,0.3367198838896952,0.4138398914518317,0.7045720984759671,0.5067873303167421,0.4779161947904869,0.3923566878980892,1.227633069082673,1.0124293785310734,0.5510455104551045,0.5106145251396648,0.5861678004535147,2.1798882681564247,1.7882219705549265,1.0079455164585698,0.764294049008168,1.0101925254813138,1.6522727272727271,1.245475113122172,1.00187617260788,0.6723356009070295,0.6636670416197975,1.1309794988610478,1.1901489117983963,0.8933177022274326,0.6301587301587301,0.2079905992949471,0.3066361556064073,0.2064896755162241,0.1661392405063291,0.0871613663133097,0.1220930232558139,0.1342756183745583,0.1302774427020506,0.0761904761904762,0.1658878504672897,0.1063084112149532,0.12784588441331,0.1267605633802817,0.1365131578947368,0.0793237971391417,0.0995203836930455,0.1492178098676293,0.184757505773672,0.1993127147766323,0.2956852791878173,0.2806818181818182,0.3371924746743849,0.3013544018058691,0.4131668558456299,0.3599088838268792,0.3993095512082854,1.0823798627002288,0.7153748411689962,0.645320197044335,0.7168674698795181,0.5585443037974683,1.1465116279069767,1.2939814814814814,1.8866348448687351,1.3858695652173914,1.1296518607442978,1.9345794392523368,1.7001153402537486,0.9817351598173516,0.9149425287356322,0.8809801633605601,1.7904191616766467,1.022673031026253,0.8323831242873432,0.9022727272727272,null,null,null,0.0,0.0842911877394636,0.2854640980735551,0.266304347826087,0.2922755741127348,0.1837672281776416,0.0600490196078431,0.0353982300884955,0.0176470588235294,0.0410958904109589,0.0470035252643948,0.0531914893617021,0.017220172201722,0.0209790209790209,0.017412935323383,0.0270588235294117,0.0188679245283018,0.0129366106080207,0.0284237726098191,0.0368020304568527,0.0521885521885521,0.1119402985074626,0.185006045949214,0.1848225214198286,0.2203196347031963,0.1475972540045766,0.2465057179161372,0.3356481481481481,0.479064039408867,0.4168797953964194,0.4917647058823529,0.525035765379113,0.8408759124087591,0.891566265060241,0.95707656612529,0.9733178654292344,0.9500594530321046,1.0345224395857306,1.3726937269372694,0.6686320754716981,0.9545983701979044,1.7041499330655958,1.0581527936145951,0.8752834467120182,1.132118451025057,1.6757679180887373,0.7241770715096482,0.7186046511627907,1.1059907834101383,0.9354094579008074,1.020408163265306,0.7815699658703071,0.6114285714285714,0.3174342105263157,0.1626848691695108,0.1191294387170675,0.1189024390243902,0.0840046029919447,0.0196759259259259,0.0214932126696832,0.0073891625615763,0.0148911798396334,0.0034762456546929,0.0082159624413145,0.0022650056625141,0.0011778563015312,0.0011376564277588,0.0121457489878542,0.0103806228373702,0.0308924485125858,0.0559360730593607,0.0742049469964664,0.0766590389016018,0.1396140749148694,0.1590909090909091,0.2407407407407407,0.2063492063492063,0.1970387243735763,0.2355658198614318,0.2875,0.5368898978433598,0.573943661971831,0.3965317919075145,0.4749034749034749,0.5383244206773619,1.0107398568019093,1.0732558139534885,0.9150174621653084,0.9405594405594404,0.9028436018957346,1.2020833333333334,1.5106990014265336,1.1012805587892898,1.1695303550973657,1.172811059907834,1.3393070489844685,0.9710648148148148,1.066125290023202,1.3523375142531358,0.8838268792710706,1.1878531073446328,0.6948571428571428,0.5843454790823212,0.5480649188514357,0.3117913832199546,0.1356898517673888,0.1844215349369988,0.2017114914425428,0.0523321956769055,0.0344036697247706,0.0123595505617977,0.0,0.0090497737556561,0.0057251908396946,0.0155148095909732,0.0157303370786516,0.0228136882129277,0.03172737955346651,0.03436426116838488,0.09239766081871345,0.06553398058252427,0.024719101123595506,0.03414634146341464,0.02666666666666667,0.02378255945639864,0.032507739938080496,0.02383654937570942,0.09378531073446328],"temperatura":[23.692857142857143,24.585714285714285,23.811428571428568,22.834285714285716,22.372857142857143,22.17,21.375714285714285,22.63,21.375714285714288,23.66,22.055714285714288,20.6,15.69,12.188571428571429,17.344285714285714,11.767142857142858,13.008571428571427,12.920000000000002,14.118571428571428,14.478571428571428,12.26142857142857,17.025714285714283,13.598571428571429,12.328571428571433,11.864285714285714,14.157142857142857,12.752857142857144,14.762857142857143,15.40857142857143,16.842857142857145,19.56571428571429,20.944285714285716,17.925714285714285,19.97714285714286,19.557142857142857,19.46857142857143,19.714285714285715,21.011428571428574,23.63285714285714,21.174285714285713,21.625714285714285,18.511428571428574,24.395714285714288,25.01285714285714,23.941428571428567,25.84857142857143,25.61714285714286,25.478571428571428,24.80857142857143,28.718571428571423,23.84142857142857,24.224285714285717,26.078571428571426,23.165714285714284,25.42142857142857,22.48571428571429,21.24142857142857,21.545714285714286,24.242857142857144,20.85,21.729999999999997,21.59,20.24142857142857,20.127142857142857,17.697142857142858,18.244285714285716,16.28857142857143,15.827142857142857,19.711428571428577,17.52,16.64,10.088571428571427,12.505714285714284,13.02142857142857,16.615714285714287,13.769999999999998,15.384285714285712,13.352857142857143,11.754285714285714,17.472857142857144,13.239999999999997,18.987142857142857,17.181428571428572,15.205714285714285,20.585714285714285,21.041428571428572,19.44857142857143,17.84,23.327142857142857,20.654285714285717,21.298571428571424,22.277142857142856,21.147142857142857,20.81571428571428,22.70571428571429,22.865714285714283,24.014285714285712,25.608571428571427,26.235714285714288,23.935714285714287,24.372857142857143,25.61714285714286,26.77428571428572,24.427142857142854,25.012857142857143,22.842857142857145,22.617142857142856,26.61714285714286,24.255714285714287,24.49142857142857,23.568571428571428,18.454285714285714,18.764285714285716,21.13571428571429,20.59714285714286,16.695714285714285,16.715714285714284,18.44,14.47857142857143,14.078571428571426,17.19142857142857,16.42,16.93857142857143,10.494285714285713,11.998571428571427,11.15,18.167142857142856,11.05,17.204285714285714,15.23857142857143,11.834285714285713,17.301428571428573,14.772857142857143,17.56714285714286,16.935714285714287,15.985714285714282,19.629999999999995,16.661428571428573,17.747142857142858,21.270000000000003,19.16,17.492857142857144,21.784285714285716,19.574285714285715,22.665714285714284,22.73142857142857,22.747142857142855,24.610000000000003,22.96142857142857,24.73857142857143,26.10285714285714,25.93428571428571,23.818571428571428,25.712857142857143,24.59428571428571,24.04857142857143,24.534285714285712,25.18428571428571,24.65857142857143,23.49,24.50428571428571,23.788571428571423,21.294285714285714,24.532857142857143,22.65142857142857,21.178571428571427,17.955714285714286,18.25,15.081428571428573,15.018571428571429,13.772857142857143,14.631428571428572,15.258571428571427,12.437142857142858,14.69,10.15,13.874285714285714,14.984285714285717,11.51857142857143,11.382857142857144,13.745714285714286,14.781428571428572,18.724285714285713,16.134285714285713,18.424285714285713,16.95,17.804285714285715,17.754285714285714,19.018571428571427,16.204285714285714,20.197142857142858,17.444285714285716,20.627142857142857,23.025714285714283,18.65571428571429,20.662857142857145,22.85,21.884285714285713,20.94,23.968571428571433,24.21857142857143,25.944285714285716,24.620000000000005,26.29428571428571,28.91714285714286,26.701428571428572,25.807142857142857,24.467142857142857,24.49571428571429,26.814285714285713,27.945714285714285,24.972857142857144,22.84,21.255714285714287,19.185714285714287,20.07857142857143,19.527142857142856,18.951428571428572,19.474285714285713,16.43,15.710000000000004,12.679999999999998,16.22857142857143,10.94857142857143,13.728571428571428,11.944285714285716,12.512857142857142,12.845714285714283,17.090000000000003,16.35,15.46,16.937142857142856,14.331428571428573,14.179999999999998,13.580000000000002,16.517142857142858,12.992857142857144,16.1,15.275714285714288,14.817142857142857,16.507142857142856,16.654285714285713,16.545714285714286,19.58285714285714,20.512857142857143,16.59857142857143,18.424285714285713,21.72714285714286,21.881428571428568,23.86285714285714,24.59857142857143,23.042857142857144,22.448571428571427,23.37857142857143,25.427142857142854,25.74142857142857,26.332857142857147,28.40857142857143,27.07571428571428,26.821428571428573,25.738571428571426,22.712857142857143,25.24571428571429,25.444285714285716,27.142857142857142,25.825714285714287,23.611428571428572,21.49285714285714,22.87,18.59142857142857,20.497142857142855,20.84,16.795714285714283,16.88857142857143,19.97,16.924285714285713,19.385714285714283,12.511428571428567,14.41,16.961428571428574,16.830000000000002,13.791428571428572,13.151428571428571,15.092857142857143,16.752857142857142,16.94142857142857,15.725714285714288,15.5,14.367142857142856,17.10571428571429,16.89142857142857,21.945714285714285,17.338571428571427,16.894285714285715,16.97,18.76285714285714,20.33285714285714,20.145714285714288,20.991428571428568,21.477142857142855,20.42571428571429,23.617142857142856,21.590000000000003,25.311428571428568,25.92571428571429,22.794285714285714,22.711428571428577,25.138571428571424,25.658571428571427,21.418571428571425,23.35571428571429,26.698571428571427,24.79285714285714,24.711428571428577,25.42428571428572,23.435714285714283,25.34142857142857,24.732857142857146,23.187142857142856,23.407142857142855,22.197142857142858,20.800000000000004,21.178571428571427,21.237142857142857,20.914285714285715,13.684285714285712,15.798571428571426,12.88,16.687142857142856,19.95,18.93285714285714,12.677142857142856,9.917142857142858,9.022857142857143,14.11,17.445714285714285,15.995714285714286,15.307142857142855,12.2,17.024285714285714,14.092857142857142,14.754285714285714,19.58857142857143,17.630000000000003,20.22,18.851428571428578,18.93285714285714,19.62857142857143,22.049999999999994,21.5,22.66857142857143,20.81571428571428,21.527142857142856,23.88714285714286,21.97714285714286,21.427142857142854,22.02428571428572,21.33857142857143,23.851428571428567,22.108571428571427,24.49571428571429,26.731428571428573,24.385714285714293,27.187142857142856,27.08857142857143,25.01571428571429,27.687142857142856,28.877142857142857,22.228571428571428,23.46857142857143,25.231428571428573,23.041428571428575,20.96,20.28142857142857,19.467142857142857,17.882857142857144,21.042857142857144,19.07,17.274285714285714,15.335714285714287,13.781428571428572,11.747142857142856,15.262857142857142,9.732857142857142,9.01,12.332857142857142,14.241428571428573,14.072857142857142,13.694285714285712,13.04714285714286,12.487142857142857,17.155714285714286,14.4,17.057142857142857,14.787142857142856,19.581428571428575,15.997142857142858,19.389999999999997,18.65571428571429,19.43428571428572,18.648571428571422,17.84857142857143,19.247142857142855,20.107142857142858,20.451428571428572,21.390000000000004,22.021428571428572,23.215714285714284,23.335714285714285,26.762857142857143,24.824285714285715,23.035714285714285,26.04714285714286,22.048571428571428,25.4,25.195714285714285,26.45,25.615714285714287,23.37,25.02,22.921428571428567,26.264285714285712,25.444285714285716,25.735714285714288,22.294285714285714,23.49285714285714,21.66,17.42857142857143,18.571428571428573,12.68142857142857,12.65857142857143,15.688571428571429,16.617142857142856,14.921428571428573,11.257142857142856,9.53285714285714,11.728571428571428,12.007142857142856,15.911428571428573,17.767142857142854,18.298571428571424,17.265714285714285,13.278571428571428,17.372857142857143,14.395714285714286,15.197142857142856,13.377142857142857,14.198571428571428,17.415714285714284,17.104285714285712,18.812857142857144,16.56714285714286,17.15,17.315714285714286],"temperatura_maxima":[31.1,30.55,32.99,34.91,34.04,28.5,28.42,30.91,30.29,30.0,30.58,29.85,26.26,23.12,26.1,19.67,26.7,25.47,21.92,25.3,22.79,26.21,20.49,20.9,23.15,23.16,26.19,26.48,24.52,24.09,29.51,29.45,28.25,28.76,29.72,27.47,29.52,30.31,31.36,30.62,28.2,25.76,33.64,32.36,31.73,35.91,32.27,31.31,32.16,36.55,35.21,32.99,36.21,35.47,35.19,28.97,29.63,31.31,32.82,29.26,30.3,29.49,28.22,26.84,24.99,24.73,20.35,23.25,26.98,26.94,27.57,22.06,22.8,24.3,25.45,25.6,25.89,26.14,19.5,28.11,25.62,30.69,30.35,24.26,31.49,33.99,30.56,27.31,31.97,27.28,28.08,31.86,31.68,30.19,32.14,33.06,33.9,35.13,35.91,33.93,34.19,33.54,35.88,34.67,36.97,33.66,31.52,38.86,34.2,34.29,33.46,30.04,29.25,32.62,32.4,27.41,30.81,28.46,23.62,21.78,28.34,26.25,26.87,17.7,18.95,26.72,26.77,22.28,25.72,26.44,23.92,28.6,26.53,26.63,25.33,27.73,32.94,24.49,25.59,29.9,28.77,26.59,30.21,27.56,34.98,29.69,34.7,32.98,30.39,35.49,35.58,36.21,31.29,33.08,32.95,30.77,32.54,35.34,31.25,31.85,33.7,31.89,28.03,34.88,35.58,30.16,27.62,32.93,26.4,22.67,21.62,28.2,21.37,22.0,21.41,18.83,22.8,23.41,26.59,26.98,26.42,27.01,30.61,28.86,27.66,25.13,30.8,29.87,27.59,24.08,29.54,27.88,29.91,29.93,26.62,30.94,34.91,29.73,29.49,34.21,34.78,35.82,39.02,37.84,38.86,38.63,36.95,35.74,34.1,36.78,38.57,35.47,34.63,31.08,31.7,25.64,26.67,28.21,31.34,21.64,23.29,19.26,25.1,19.56,21.22,21.97,19.05,23.17,24.9,25.59,25.72,26.39,24.92,22.08,25.43,27.07,25.22,27.24,22.44,22.91,24.2,26.11,24.82,25.56,30.96,29.44,25.97,29.14,30.39,33.01,33.05,33.75,33.98,35.15,36.61,37.23,36.35,37.68,35.11,36.54,39.31,30.46,33.55,33.25,35.88,36.1,33.47,30.75,33.39,29.01,29.46,30.07,26.9,26.16,29.45,26.33,28.39,16.95,23.72,25.92,24.94,21.74,25.77,25.51,25.48,27.11,28.7,28.31,24.96,23.92,29.75,31.44,24.01,24.94,27.03,25.87,28.93,29.28,31.92,27.72,31.29,32.05,27.61,33.96,34.71,31.24,30.1,32.82,32.82,26.5,31.87,33.95,35.02,32.19,32.18,31.92,33.89,34.17,30.48,31.51,30.07,27.36,31.16,26.91,29.31,21.64,27.01,20.5,25.51,26.31,26.46,25.0,19.79,15.14,23.12,25.0,26.3,25.74,22.56,26.44,24.72,23.99,28.08,26.3,30.78,30.6,23.74,25.07,31.59,28.88,29.51,30.79,33.28,32.06,32.31,29.1,29.57,29.53,31.74,27.87,33.18,33.56,31.68,35.48,38.83,33.06,36.66,37.62,28.93,33.29,32.71,36.6,28.21,29.9,29.59,27.39,31.94,27.96,30.77,27.53,23.06,20.13,22.41,19.22,18.02,19.56,23.69,21.95,25.14,19.37,20.67,28.14,25.58,27.4,22.25,28.0,24.59,27.98,32.12,26.53,30.08,26.57,27.7,30.32,30.21,31.71,32.56,32.18,32.38,32.43,32.13,32.54,35.26,29.64,34.67,36.37,38.72,33.46,31.31,35.46,31.2,36.69,35.68,34.75,34.55,31.36,31.05,29.27,30.23,22.25,19.72,22.76,25.63,20.86,17.77,20.0,19.59,21.69,30.13,30.18,27.19,24.59,22.73,28.14,28.03,25.06,20.63,23.05,27.85,27.02,26.8,21.53,25.97,24.43],"umidade":[78.58,80.95285714285716,72.49571428571429,71.79285714285713,79.35714285714286,87.78714285714285,87.31714285714285,81.07428571428571,78.12285714285714,82.73142857142857,86.00999999999999,82.30285714285712,82.30142857142857,82.14999999999999,84.3757142857143,83.07000000000001,83.42,86.72285714285714,90.54285714285716,88.60857142857142,85.94714285714284,87.43000000000002,90.86571428571428,85.49,86.37285714285714,86.39857142857143,85.25,83.10571428571428,86.24428571428572,88.30571428571429,85.01285714285713,88.84,81.10571428571427,83.38857142857144,82.47428571428573,81.93428571428572,83.29142857142857,82.26714285714286,79.60714285714286,81.11142857142856,81.69714285714285,70.90285714285714,80.69142857142856,85.97142857142856,80.77,79.91285714285713,84.04,85.84,82.71285714285715,75.46714285714287,71.22857142857143,76.26142857142857,71.99714285714286,71.98714285714287,78.65714285714286,79.81571428571428,79.14,73.93857142857144,79.31999999999998,81.6842857142857,81.80857142857143,85.2042857142857,86.09714285714287,88.91857142857144,88.26714285714286,89.55142857142857,91.5342857142857,88.01142857142858,88.51428571428572,84.97142857142856,82.54428571428572,78.98142857142857,85.0185714285714,88.98428571428569,90.56857142857145,85.79142857142857,86.7842857142857,85.95,84.07142857142857,85.42428571428572,80.18999999999998,87.41999999999999,83.96857142857142,80.73857142857143,84.85714285714286,81.51,84.89999999999999,81.32714285714287,86.59714285714286,85.73142857142857,82.71000000000001,80.58142857142857,76.5642857142857,74.30857142857143,75.14857142857143,79.48571428571428,72.48285714285713,76.25285714285714,74.14285714285714,71.29571428571428,75.38285714285713,74.4557142857143,71.89571428571428,68.04142857142858,68.41142857142857,67.90428571428572,70.67142857142856,66.08285714285714,75.49571428571429,66.61142857142858,70.25428571428571,72.94285714285714,69.98,69.08999999999999,68.38857142857144,67.81,76.28,78.66714285714286,76.63571428571429,84.79285714285713,84.7942857142857,86.98428571428573,80.17571428571429,85.01857142857143,90.54142857142855,85.59,84.56571428571428,86.02285714285713,84.44428571428571,85.90142857142857,79.22428571428573,85.36857142857143,86.82428571428571,90.3685714285714,85.7685714285714,80.06714285714285,86.66142857142857,84.30571428571429,82.85428571428572,84.02,81.14285714285714,79.84285714285714,85.63142857142859,80.38,81.62285714285714,79.6842857142857,80.59714285714287,81.38,72.54285714285713,70.38,67.46142857142857,71.64999999999999,78.37428571428572,82.87142857142855,80.90571428571427,76.22142857142856,71.06285714285715,69.80142857142857,79.07000000000001,70.23857142857143,74.19285714285715,84.96571428571428,77.13714285714286,69.79857142857144,69.31428571428572,73.61857142857143,74.72285714285714,75.09571428571428,77.81142857142858,81.42285714285715,78.88571428571427,80.11142857142859,89.00142857142858,85.73,88.65857142857145,83.62571428571428,87.21857142857142,88.27857142857142,77.16571428571429,77.67285714285715,86.34285714285716,83.23142857142857,86.55999999999999,84.24714285714286,81.74285714285715,84.91571428571429,84.36714285714285,84.00428571428573,85.78285714285714,79.46714285714286,83.26142857142858,79.26142857142858,73.0442857142857,81.21714285714283,73.78857142857144,76.55428571428571,72.44285714285715,74.43857142857142,75.39857142857143,78.91857142857143,68.30857142857143,65.14142857142858,71.75571428571429,65.11857142857144,76.28428571428572,72.29142857142858,72.84285714285714,66.97571428571428,65.41857142857143,68.76571428571428,67.83857142857143,78.10571428571428,77.96571428571428,74.68285714285716,74.31142857142858,89.53857142857143,82.13,77.4342857142857,82.76428571428572,86.7842857142857,87.55571428571429,85.74571428571429,89.3457142857143,84.71714285714286,88.31285714285714,84.57428571428572,91.6442857142857,88.13571428571427,89.74,87.28857142857143,88.10571428571428,87.95571428571428,88.07000000000001,88.42571428571429,83.14857142857143,84.27285714285713,83.80714285714285,82.67714285714285,84.2957142857143,83.30285714285715,83.37714285714287,82.78285714285714,80.73285714285714,86.11571428571428,80.63,77.36857142857141,84.50571428571428,75.92285714285715,80.45142857142858,82.16428571428573,81.4057142857143,69.96,74.82571428571428,69.03285714285715,64.69142857142856,68.66142857142857,73.49000000000001,67.65142857142857,70.85857142857142,65.22428571428571,64.45285714285714,77.04857142857145,75.92571428571429,80.76571428571428,70.30714285714285,74.26142857142857,71.32428571428572,73.49571428571429,71.64428571428572,71.01857142857143,74.93857142857142,86.54571428571428,82.63,78.22,78.45857142857143,74.60428571428572,74.14857142857143,84.18714285714286,89.74000000000001,84.98428571428572,86.44142857142856,87.92142857142856,84.19428571428571,87.40142857142857,87.10857142857142,83.0657142857143,79.27571428571427,80.16142857142857,83.10000000000001,88.81999999999998,84.6542857142857,87.81142857142856,87.74714285714286,84.26142857142858,85.17714285714285,85.35285714285715,86.96000000000001,86.0257142857143,84.07714285714285,91.18,81.37571428571428,87.66,85.91142857142857,83.17285714285715,85.27571428571427,80.26428571428572,83.37285714285716,84.48142857142857,86.12714285714287,80.68714285714285,81.98,82.75,80.72,83.05571428571429,84.46571428571428,78.71285714285715,80.24428571428572,78.28714285714285,78.45142857142856,78.77714285714286,85.01428571428572,84.22285714285714,83.92142857142858,90.98571428571428,87.33857142857143,84.51428571428572,90.34285714285714,88.99428571428572,89.81142857142856,88.33714285714287,92.2385714285714,86.91571428571429,84.8,90.54428571428572,92.53142857142858,90.10285714285716,87.31285714285715,90.55571428571427,84.66142857142857,88.9042857142857,86.7057142857143,86.28571428571429,91.03428571428572,86.39285714285714,89.18571428571428,82.77,89.54999999999998,84.53428571428572,82.67,82.15571428571427,85.67857142857143,75.95142857142856,83.17714285714285,82.46571428571428,78.37142857142858,81.46000000000001,82.22285714285714,78.11142857142856,79.88714285714285,76.86285714285714,78.98285714285714,77.93714285714286,80.24571428571429,75.44857142857143,72.82142857142857,82.95142857142856,78.82857142857142,68.66571428571429,74.52,72.67,74.06714285714284,73.63142857142857,82.50285714285714,79.60285714285715,76.89142857142858,72.63428571428571,75.57571428571427,78.90285714285713,78.24142857142856,87.24857142857142,87.01857142857143,86.23,92.70428571428572,80.82714285714285,86.8442857142857,88.54,88.97,87.60142857142857,86.51428571428572,90.28857142857144,83.66428571428571,85.19571428571429,81.54714285714284,84.91714285714285,83.6542857142857,85.86,79.85285714285715,88.08285714285715,81.36,85.25142857142858,76.31285714285714,83.03428571428572,81.63857142857144,78.87857142857142,76.49000000000001,79.32857142857142,80.58714285714287,83.06857142857143,75.89857142857143,83.37,80.73000000000002,75.08857142857143,76.2042857142857,73.77,75.34,72.28571428571429,70.32571428571428,75.54285714285713,72.14142857142858,70.89857142857143,74.72571428571428,75.42857142857143,81.0557142857143,72.69285714285715,72.99428571428571,74.22428571428573,78.85142857142856,71.22285714285715,77.43142857142857,75.93714285714285,81.58714285714287,87.25142857142859,83.08142857142856,89.08000000000001,81.10285714285715,79.60571428571428,87.20571428571428,81.2,77.86571428571429,86.3157142857143,90.1542857142857,86.45857142857143,83.9057142857143,86.52714285714286,85.54142857142857,85.18571428571428,84.71285714285715,82.94571428571429,83.32000000000001,86.90285714285714,86.67714285714285,89.1542857142857,84.29142857142857,82.51571428571428],"pressao":[100.5514285714286,100.86,100.63428571428572,100.5457142857143,100.65999999999998,101.06285714285714,100.68714285714285,101.30428571428573,101.60857142857142,101.21428571428572,101.21142857142856,101.33571428571427,101.11714285714284,101.65,101.31857142857142,101.56285714285715,101.44857142857144,101.69714285714284,101.28285714285714,101.24428571428572,101.74571428571429,101.18285714285716,101.76,101.47714285714288,101.42285714285713,101.77857142857144,101.5085714285714,101.38285714285712,101.42142857142856,101.32285714285716,100.83714285714288,100.78285714285714,101.17,100.97285714285714,101.00571428571428,101.03142857142858,100.80714285714284,101.20714285714284,100.57428571428572,100.79714285714284,100.82714285714287,101.03428571428572,100.94142857142856,100.63714285714286,100.71,100.60571428571428,100.67857142857144,100.73714285714286,100.99142857142856,100.78571428571428,100.99714285714286,100.77857142857144,100.64,100.74,100.89,101.03285714285714,100.97285714285714,101.44142857142856,100.70857142857145,101.16285714285712,100.9414285714286,101.1542857142857,100.89285714285714,101.02142857142856,101.71428571428572,101.06142857142858,101.03142857142858,101.71857142857144,101.35571428571428,101.62857142857142,100.92142857142856,101.27142857142856,101.58857142857144,101.72,101.45285714285714,101.49285714285716,101.79142857142855,101.75142857142858,102.05571428571427,101.35285714285716,101.67,101.04857142857142,100.87571428571428,101.81142857142856,100.79142857142855,101.09571428571428,101.32714285714287,101.1,100.63571428571429,100.76428571428572,100.88285714285716,100.9157142857143,100.74285714285716,100.79285714285712,100.73,100.61857142857144,100.80571428571427,100.60285714285716,100.35,101.02428571428572,100.67285714285715,100.61142857142856,100.90142857142855,100.9985714285714,100.72857142857144,100.94857142857144,101.32,100.91428571428573,100.74428571428572,101.12,100.87428571428572,101.29142857142858,101.26,101.27142857142856,101.4557142857143,101.3814285714286,101.20571428571428,101.05285714285716,101.18428571428572,101.41142857142856,100.92857142857144,101.45142857142858,101.00714285714284,101.16285714285712,101.18,101.49714285714283,101.11428571428571,101.9157142857143,101.91142857142856,100.94285714285716,101.57857142857142,101.15857142857142,101.59571428571428,101.16857142857144,101.1542857142857,101.48428571428568,100.66857142857144,101.06,101.28,101.07142857142856,100.76285714285711,101.41428571428573,100.84285714285714,100.89,101.0657142857143,100.79714285714286,100.84714285714286,100.48857142857142,100.83428571428573,100.69714285714284,100.53142857142858,100.75142857142858,101.0457142857143,100.29,100.49714285714286,100.88571428571426,100.38571428571429,100.95571428571428,100.67142857142856,100.7942857142857,100.84714285714288,100.99714285714286,100.99857142857142,101.15857142857142,101.10714285714288,101.33142857142856,101.43285714285716,101.47714285714284,101.62714285714284,101.0657142857143,100.88142857142856,101.19285714285716,101.43571428571428,101.80857142857144,101.27285714285712,101.89571428571428,101.71,101.23428571428572,101.76142857142855,101.60142857142856,102.20857142857142,101.70571428571428,100.9485714285714,100.90857142857143,101.3685714285714,100.93571428571428,101.15857142857142,101.27,100.95142857142858,101.16285714285712,100.81000000000002,101.19714285714284,101.33571428571427,100.78857142857144,101.36,100.88857142857144,100.49857142857144,100.55714285714284,101.1185714285714,100.67571428571428,100.65857142857143,100.53,100.59,100.85857142857142,100.62000000000002,100.57714285714285,100.47,100.78857142857144,100.69857142857144,100.82285714285716,100.60428571428572,100.74285714285712,100.9657142857143,100.91428571428573,101.28857142857144,101.07285714285716,101.03285714285714,101.03,101.01999999999998,101.41428571428573,101.33857142857144,101.23285714285711,101.34714285714286,101.45000000000002,101.26571428571428,101.35714285714286,101.35,101.29,101.28142857142858,100.73142857142857,101.44857142857144,101.1614285714286,101.1314285714286,101.71714285714286,101.22571428571428,101.58571428571427,101.86,101.35428571428572,101.55285714285716,101.12,101.50428571428571,100.86571428571428,101.55285714285716,101.01,100.78285714285713,101.6642857142857,101.32142857142856,100.85,100.94142857142856,100.61428571428571,100.54571428571428,100.51857142857143,100.97571428571428,100.79714285714284,100.82571428571428,100.67857142857144,100.88714285714286,100.44285714285716,100.4785714285714,100.7285714285714,100.37,101.02,100.89285714285714,100.68857142857144,100.98142857142857,100.98857142857142,100.96,101.17571428571428,101.02428571428572,100.81285714285714,101.21285714285716,101.1114285714286,101.36571428571428,101.43857142857142,101.19285714285714,101.61,101.28857142857144,101.76142857142858,101.36571428571428,101.46857142857142,101.22857142857144,101.00571428571428,101.92,101.65142857142858,101.54142857142855,101.37285714285714,101.13,100.67285714285715,101.45428571428572,101.10714285714288,100.99,100.71142857142856,100.98714285714286,100.71571428571428,101.30714285714284,101.25428571428571,100.49857142857142,100.52857142857144,100.81857142857145,100.16428571428573,100.98428571428572,100.69428571428573,100.99571428571429,100.67714285714284,100.5557142857143,100.77714285714286,100.8614285714286,100.65857142857142,100.50285714285714,101.2942857142857,101.00428571428571,100.90714285714286,100.94571428571427,100.61,100.91,100.95285714285716,100.73857142857142,100.77428571428572,101.09714285714288,100.92,101.06428571428572,101.01428571428572,100.79285714285716,100.51428571428572,100.75428571428571,101.2,101.23857142857142,101.76428571428572,101.59285714285716,100.94428571428573,100.86428571428571,101.17,101.5942857142857,102.0442857142857,102.03,101.51285714285711,101.57571428571428,101.25428571428571,101.50142857142858,101.13,101.85285714285712,101.22428571428571,100.8457142857143,101.32142857142856,100.7942857142857,101.05571428571427,100.97142857142856,101.22571428571428,100.58857142857144,101.06142857142858,100.7757142857143,100.7842857142857,101.08142857142856,100.65285714285712,100.51,100.70714285714288,100.61428571428571,100.82714285714285,100.53428571428572,100.75857142857144,100.64142857142858,100.5757142857143,100.6857142857143,100.57,100.69,100.87571428571428,100.88,101.01142857142858,101.19857142857144,101.23428571428572,100.85,101.18857142857142,101.21857142857142,101.0657142857143,100.96285714285716,101.23428571428572,101.00714285714288,101.64,101.51,101.26571428571428,101.48428571428572,101.70142857142858,101.23571428571428,101.16714285714286,102.30857142857144,102.0857142857143,101.61428571428571,101.53428571428572,101.35,101.75285714285714,101.83571428571427,100.93285714285716,101.91571428571427,101.53857142857144,101.46714285714286,101.07857142857142,101.44571428571427,101.25285714285714,101.18714285714285,100.8257142857143,101.56857142857145,101.32571428571428,100.75714285714288,101.26,100.59428571428568,100.88285714285716,100.62714285714286,99.98714285714286,100.59,100.43857142857142,100.4157142857143,100.9342857142857,100.61285714285714,101.10428571428572,100.81142857142856,100.53428571428572,100.7757142857143,100.76857142857143,100.68571428571428,100.69,100.89571428571428,100.4742857142857,100.85285714285716,100.84714285714288,101.03857142857144,100.76142857142855,101.04714285714284,101.0442857142857,100.93999999999998,101.42,101.85714285714286,101.63428571428572,101.8057142857143,101.14142857142858,101.57857142857142,101.5442857142857,101.6257142857143,101.38285714285716,101.14142857142856,100.83,100.9742857142857,100.73,101.67285714285715,101.13,101.09,101.07428571428571,101.42857142857143,101.74571428571429,100.85142857142857,100.82714285714285,100.9057142857143,100.90714285714286,101.08142857142856,101.18714285714285]},"patamares":[{"estagio":"Mobilização","por_100mil":10,"casos_semana":148.66783013379873},{"estagio":"Alerta","por_100mil":30,"casos_semana":447.06540347378046},{"estagio":"Epidemia","por_100mil":50,"casos_semana":745.4629768137622}],"situacao_atual":{"semana":"2026-09-27","casos":0.0,"estagio":"Normalidade"},"logo":null}</script>
+<script id="previsao" type="application/json">{"data_de_referencia":"2026-11-10","origem":"2026-10-25","dados_ate":{"captura":"2026-10-25","clima":"2026-10-25","casos_extracao":"2026-10-02"},"limiar_alerta":447.06540347378046,"modelos":[{"chave":"composto","nome":"Modelo do projeto","descricao":"Alterna entre as variantes A e B, pela que errou menos nas 13 semanas anteriores."},{"chave":"folha5","nome":"Variante A","descricao":"Árvores mais detalhadas: cada folha reúne pelo menos 5 semanas de treino."},{"chave":"folha20","nome":"Variante B","descricao":"Árvores mais suaves: cada folha reúne pelo menos 20 semanas de treino."},{"chave":"regua_sazonal","nome":"Repetir o ano anterior","descricao":"Usa os casos da mesma semana do ano passado."},{"chave":"persistencia","nome":"Repetir a semana atual","descricao":"Usa os casos da última semana com dados."}],"horizontes":[{"h":1,"rotulo":"1 semana","semana_alvo":"2026-11-01","variante_do_composto":"folha5","por_modelo":{"composto":{"previsto":-0.018235259671612,"estagio":"Normalidade","acima_do_alerta":false,"mae_avaliacao":102.33247728213615,"semanas_alerta_avaliacao":24,"reconhecidas_avaliacao":23,"mae_referencia_avaliacao":202.1078431372549},"folha5":{"previsto":-0.018235259671612,"estagio":"Normalidade","acima_do_alerta":false,"mae_avaliacao":97.98708193004315,"semanas_alerta_avaliacao":24,"reconhecidas_avaliacao":23,"mae_referencia_avaliacao":202.1078431372549},"folha20":{"previsto":0.24217379286216248,"estagio":"Normalidade","acima_do_alerta":false,"mae_avaliacao":133.6259070330219,"semanas_alerta_avaliacao":24,"reconhecidas_avaliacao":24,"mae_referencia_avaliacao":202.1078431372549},"regua_sazonal":{"previsto":4.0,"estagio":"Normalidade","acima_do_alerta":false,"mae_avaliacao":202.1078431372549,"semanas_alerta_avaliacao":24,"reconhecidas_avaliacao":17,"mae_referencia_avaliacao":202.1078431372549},"persistencia":{"previsto":0.0,"estagio":"Normalidade","acima_do_alerta":false,"mae_avaliacao":83.29411764705883,"semanas_alerta_avaliacao":24,"reconhecidas_avaliacao":22,"mae_referencia_avaliacao":202.1078431372549}}},{"h":4,"rotulo":"1 mês","semana_alvo":"2026-11-22","variante_do_composto":"folha5","por_modelo":{"composto":{"previsto":0.7928838949418929,"estagio":"Normalidade","acima_do_alerta":false,"mae_avaliacao":205.72625957865395,"semanas_alerta_avaliacao":27,"reconhecidas_avaliacao":26,"mae_referencia_avaliacao":213.1764705882353},"folha5":{"previsto":0.7928838949418929,"estagio":"Normalidade","acima_do_alerta":false,"mae_avaliacao":219.6692347506603,"semanas_alerta_avaliacao":27,"reconhecidas_avaliacao":26,"mae_referencia_avaliacao":213.1764705882353},"folha20":{"previsto":1.5153056589885323,"estagio":"Normalidade","acima_do_alerta":false,"mae_avaliacao":199.63518360553894,"semanas_alerta_avaliacao":27,"reconhecidas_avaliacao":27,"mae_referencia_avaliacao":213.1764705882353},"regua_sazonal":{"previsto":2.0,"estagio":"Normalidade","acima_do_alerta":false,"mae_avaliacao":213.1764705882353,"semanas_alerta_avaliacao":27,"reconhecidas_avaliacao":20,"mae_referencia_avaliacao":213.1764705882353},"persistencia":{"previsto":0.0,"estagio":"Normalidade","acima_do_alerta":false,"mae_avaliacao":278.95098039215685,"semanas_alerta_avaliacao":27,"reconhecidas_avaliacao":19,"mae_referencia_avaliacao":213.1764705882353}}},{"h":8,"rotulo":"2 meses","semana_alvo":"2026-12-20","variante_do_composto":"folha5","por_modelo":{"composto":{"previsto":0.8989225205241247,"estagio":"Normalidade","acima_do_alerta":false,"mae_avaliacao":233.50646118987868,"semanas_alerta_avaliacao":28,"reconhecidas_avaliacao":23,"mae_referencia_avaliacao":216.16666666666666},"folha5":{"previsto":0.8989225205241247,"estagio":"Normalidade","acima_do_alerta":false,"mae_avaliacao":272.6266744147025,"semanas_alerta_avaliacao":28,"reconhecidas_avaliacao":18,"mae_referencia_avaliacao":216.16666666666666},"folha20":{"previsto":0.5758631540361885,"estagio":"Normalidade","acima_do_alerta":false,"mae_avaliacao":223.18272015579177,"semanas_alerta_avaliacao":28,"reconhecidas_avaliacao":24,"mae_referencia_avaliacao":216.16666666666666},"regua_sazonal":{"previsto":1.0,"estagio":"Normalidade","acima_do_alerta":false,"mae_avaliacao":216.16666666666666,"semanas_alerta_avaliacao":28,"reconhecidas_avaliacao":21,"mae_referencia_avaliacao":216.16666666666666},"persistencia":{"previsto":0.0,"estagio":"Normalidade","acima_do_alerta":false,"mae_avaliacao":530.9705882352941,"semanas_alerta_avaliacao":28,"reconhecidas_avaliacao":12,"mae_referencia_avaliacao":216.16666666666666}}},{"h":12,"rotulo":"3 meses","semana_alvo":"2027-01-17","variante_do_composto":"folha5","por_modelo":{"composto":{"previsto":0.30209370343804653,"estagio":"Normalidade","acima_do_alerta":false,"mae_avaliacao":260.1356284077855,"semanas_alerta_avaliacao":28,"reconhecidas_avaliacao":12,"mae_referencia_avaliacao":217.7843137254902},"folha5":{"previsto":0.30209370343804653,"estagio":"Normalidade","acima_do_alerta":false,"mae_avaliacao":278.8175469066808,"semanas_alerta_avaliacao":28,"reconhecidas_avaliacao":11,"mae_referencia_avaliacao":217.7843137254902},"folha20":{"previsto":2.216513554737098,"estagio":"Normalidade","acima_do_alerta":false,"mae_avaliacao":243.76452770203178,"semanas_alerta_avaliacao":28,"reconhecidas_avaliacao":14,"mae_referencia_avaliacao":217.7843137254902},"regua_sazonal":{"previsto":1.0,"estagio":"Normalidade","acima_do_alerta":false,"mae_avaliacao":217.7843137254902,"semanas_alerta_avaliacao":28,"reconhecidas_avaliacao":21,"mae_referencia_avaliacao":217.7843137254902},"persistencia":{"previsto":0.0,"estagio":"Normalidade","acima_do_alerta":false,"mae_avaliacao":697.4901960784314,"semanas_alerta_avaliacao":28,"reconhecidas_avaliacao":4,"mae_referencia_avaliacao":217.7843137254902}}}],"curva":{"semanas_alvo":["2026-11-01","2026-11-08","2026-11-15","2026-11-22","2026-11-29","2026-12-06","2026-12-13","2026-12-20","2026-12-27","2027-01-03","2027-01-10","2027-01-17"],"por_modelo":{"composto":{"previsto":[-0.018235259671612,0.29381708507196125,0.5036637351378879,0.7928838949418929,2.0726622435654884,0.7876519688640246,1.6154582215518762,0.8989225205241247,2.1775863871476013,-0.22931888654009983,2.7270889124392848,0.30209370343804653],"mae_avaliacao":[102.33247728213615,185.6635020330247,198.37550467018357,205.72625957865395,220.5266426623597,226.44432706334183,245.33465189264516,233.50646118987868,254.80853159256574,250.89806198885887,268.19207241945156,260.1356284077855],"variante":["folha5","folha5","folha5","folha5","folha20","folha20","folha20","folha5","folha20","folha5","folha5","folha5"]},"folha5":{"previsto":[-0.018235259671612,0.29381708507196125,0.5036637351378879,0.7928838949418929,1.4779321256922766,1.0742604141665635,2.00606541650803,0.8989225205241247,0.6545263097570926,-0.22931888654009983,2.7270889124392848,0.30209370343804653],"mae_avaliacao":[97.98708193004315,161.9592828472556,185.21415968018596,219.6692347506603,217.67416392029247,262.69308401923695,249.7368031945706,272.6266744147025,284.1746747041617,280.56058027664096,292.10881518624666,278.8175469066808]},"folha20":{"previsto":[0.24217379286216248,0.4210422598370943,0.10198007471941205,1.5153056589885323,2.0726622435654884,0.7876519688640246,1.6154582215518762,0.5758631540361885,2.1775863871476013,1.377218850375151,3.7331405712567234,2.216513554737098],"mae_avaliacao":[133.6259070330219,191.6345749786114,203.29313945151677,199.63518360553894,225.41995796438434,221.52719642188765,232.37280312096723,223.18272015579177,234.7832492622613,236.7644819485484,241.60254989844415,243.76452770203178]},"regua_sazonal":{"previsto":[4.0,0.0,5.0,2.0,3.0,2.0,1.0,1.0,0.0,2.0,0.0,1.0],"mae_avaliacao":[202.1078431372549,202.41176470588235,211.77450980392157,213.1764705882353,213.64705882352942,213.7843137254902,214.14705882352942,216.16666666666666,217.2941176470588,217.40196078431373,217.64705882352942,217.7843137254902]},"persistencia":{"previsto":[0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"mae_avaliacao":[83.29411764705883,153.45098039215685,214.55882352941177,278.95098039215685,343.2549019607843,405.4019607843137,468.3137254901961,530.9705882352941,585.5,624.2450980392157,667.6274509803922,697.4901960784314]}}},"contexto_casos_2026":{"fichas":3493,"confirmadas":21,"inconclusivas":3412,"em_aberto":60},"series":{"datas":["2018-02-18","2018-02-25","2018-03-04","2018-03-11","2018-03-18","2018-03-25","2018-04-01","2018-04-08","2018-04-15","2018-04-22","2018-04-29","2018-05-06","2018-05-13","2018-05-20","2018-05-27","2018-06-03","2018-06-10","2018-06-17","2018-06-24","2018-07-01","2018-07-08","2018-07-15","2018-07-22","2018-07-29","2018-08-05","2018-08-12","2018-08-19","2018-08-26","2018-09-02","2018-09-09","2018-09-16","2018-09-23","2018-09-30","2018-10-07","2018-10-14","2018-10-21","2018-10-28","2018-11-04","2018-11-11","2018-11-18","2018-11-25","2018-12-02","2018-12-09","2018-12-16","2018-12-23","2018-12-30","2019-01-06","2019-01-13","2019-01-20","2019-01-27","2019-02-03","2019-02-10","2019-02-17","2019-02-24","2019-03-03","2019-03-10","2019-03-17","2019-03-24","2019-03-31","2019-04-07","2019-04-14","2019-04-21","2019-04-28","2019-05-05","2019-05-12","2019-05-19","2019-05-26","2019-06-02","2019-06-09","2019-06-16","2019-06-23","2019-06-30","2019-07-07","2019-07-14","2019-07-21","2019-07-28","2019-08-04","2019-08-11","2019-08-18","2019-08-25","2019-09-01","2019-09-08","2019-09-15","2019-09-22","2019-09-29","2019-10-06","2019-10-13","2019-10-20","2019-10-27","2019-11-03","2019-11-10","2019-11-17","2019-11-24","2019-12-01","2019-12-08","2019-12-15","2019-12-22","2019-12-29","2020-01-05","2020-01-12","2020-01-19","2020-01-26","2020-02-02","2020-02-09","2020-02-16","2020-02-23","2020-03-01","2020-03-08","2020-03-15","2020-03-22","2020-03-29","2020-04-05","2020-04-12","2020-04-19","2020-04-26","2020-05-03","2020-05-10","2020-05-17","2020-05-24","2020-05-31","2020-06-07","2020-06-14","2020-06-21","2020-06-28","2020-07-05","2020-07-12","2020-07-19","2020-07-26","2020-08-02","2020-08-09","2020-08-16","2020-08-23","2020-08-30","2020-09-06","2020-09-13","2020-09-20","2020-09-27","2020-10-04","2020-10-11","2020-10-18","2020-10-25","2020-11-01","2020-11-08","2020-11-15","2020-11-22","2020-11-29","2020-12-06","2020-12-13","2020-12-20","2020-12-27","2021-01-03","2021-01-10","2021-01-17","2021-01-24","2021-01-31","2021-02-07","2021-02-14","2021-02-21","2021-02-28","2021-03-07","2021-03-14","2021-03-21","2021-03-28","2021-04-04","2021-04-11","2021-04-18","2021-04-25","2021-05-02","2021-05-09","2021-05-16","2021-05-23","2021-05-30","2021-06-06","2021-06-13","2021-06-20","2021-06-27","2021-07-04","2021-07-11","2021-07-18","2021-07-25","2021-08-01","2021-08-08","2021-08-15","2021-08-22","2021-08-29","2021-09-05","2021-09-12","2021-09-19","2021-09-26","2021-10-03","2021-10-10","2021-10-17","2021-10-24","2021-10-31","2021-11-07","2021-11-14","2021-11-21","2021-11-28","2021-12-05","2021-12-12","2021-12-19","2021-12-26","2022-01-02","2022-01-09","2022-01-16","2022-01-23","2022-01-30","2022-02-06","2022-02-13","2022-02-20","2022-02-27","2022-03-06","2022-03-13","2022-03-20","2022-03-27","2022-04-03","2022-04-10","2022-04-17","2022-04-24","2022-05-01","2022-05-08","2022-05-15","2022-05-22","2022-05-29","2022-06-05","2022-06-12","2022-06-19","2022-06-26","2022-07-03","2022-07-10","2022-07-17","2022-07-24","2022-07-31","2022-08-07","2022-08-14","2022-08-21","2022-08-28","2022-09-04","2022-09-11","2022-09-18","2022-09-25","2022-10-02","2022-10-09","2022-10-16","2022-10-23","2022-10-30","2022-11-06","2022-11-13","2022-11-20","2022-11-27","2022-12-04","2022-12-11","2022-12-18","2022-12-25","2023-01-01","2023-01-08","2023-01-15","2023-01-22","2023-01-29","2023-02-05","2023-02-12","2023-02-19","2023-02-26","2023-03-05","2023-03-12","2023-03-19","2023-03-26","2023-04-02","2023-04-09","2023-04-16","2023-04-23","2023-04-30","2023-05-07","2023-05-14","2023-05-21","2023-05-28","2023-06-04","2023-06-11","2023-06-18","2023-06-25","2023-07-02","2023-07-09","2023-07-16","2023-07-23","2023-07-30","2023-08-06","2023-08-13","2023-08-20","2023-08-27","2023-09-03","2023-09-10","2023-09-17","2023-09-24","2023-10-01","2023-10-08","2023-10-15","2023-10-22","2023-10-29","2023-11-05","2023-11-12","2023-11-19","2023-11-26","2023-12-03","2023-12-10","2023-12-17","2023-12-24","2023-12-31","2024-01-07","2024-01-14","2024-01-21","2024-01-28","2024-02-04","2024-02-11","2024-02-18","2024-02-25","2024-03-03","2024-03-10","2024-03-17","2024-03-24","2024-03-31","2024-04-07","2024-04-14","2024-04-21","2024-04-28","2024-05-05","2024-05-12","2024-05-19","2024-05-26","2024-06-02","2024-06-09","2024-06-16","2024-06-23","2024-06-30","2024-07-07","2024-07-14","2024-07-21","2024-07-28","2024-08-04","2024-08-11","2024-08-18","2024-08-25","2024-09-01","2024-09-08","2024-09-15","2024-09-22","2024-09-29","2024-10-06","2024-10-13","2024-10-20","2024-10-27","2024-11-03","2024-11-10","2024-11-17","2024-11-24","2024-12-01","2024-12-08","2024-12-15","2024-12-22","2024-12-29","2025-01-05","2025-01-12","2025-01-19","2025-01-26","2025-02-02","2025-02-09","2025-02-16","2025-02-23","2025-03-02","2025-03-09","2025-03-16","2025-03-23","2025-03-30","2025-04-06","2025-04-13","2025-04-20","2025-04-27","2025-05-04","2025-05-11","2025-05-18","2025-05-25","2025-06-01","2025-06-08","2025-06-15","2025-06-22","2025-06-29","2025-07-06","2025-07-13","2025-07-20","2025-07-27","2025-08-03","2025-08-10","2025-08-17","2025-08-24","2025-08-31","2025-09-07","2025-09-14","2025-09-21","2025-09-28","2025-10-05","2025-10-12","2025-10-19","2025-10-26","2025-11-02","2025-11-09","2025-11-16","2025-11-23","2025-11-30","2025-12-07","2025-12-14","2025-12-21","2025-12-28","2026-01-04","2026-01-11","2026-01-18","2026-01-25","2026-02-01","2026-02-08","2026-02-15","2026-02-22","2026-03-01","2026-03-08","2026-03-15","2026-03-22","2026-03-29","2026-04-05","2026-04-12","2026-04-19","2026-04-26","2026-05-03","2026-05-10","2026-05-17","2026-05-24","2026-05-31","2026-06-07","2026-06-14","2026-06-21","2026-06-28","2026-07-05","2026-07-12","2026-07-19","2026-07-26","2026-08-02","2026-08-09","2026-08-16","2026-08-23","2026-08-30","2026-09-06","2026-09-13","2026-09-20","2026-09-27","2026-10-04","2026-10-11","2026-10-18","2026-10-25"],"casos":[1.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,2.0,1.0,0.0,0.0,1.0,1.0,1.0,5.0,7.0,8.0,18.0,22.0,21.0,53.0,45.0,38.0,47.0,64.0,47.0,20.0,11.0,16.0,22.0,18.0,10.0,1.0,2.0,0.0,0.0,1.0,1.0,0.0,0.0,1.0,0.0,0.0,0.0,3.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,1.0,2.0,4.0,2.0,3.0,3.0,2.0,1.0,4.0,4.0,3.0,1.0,0.0,1.0,2.0,3.0,1.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,2.0,0.0,1.0,0.0,1.0,1.0,9.0,12.0,12.0,8.0,7.0,9.0,5.0,0.0,1.0,1.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,1.0,0.0,2.0,0.0,1.0,2.0,9.0,20.0,51.0,203.0,269.0,463.0,482.0,524.0,753.0,879.0,569.0,344.0,223.0,313.0,122.0,92.0,61.0,17.0,26.0,19.0,14.0,24.0,13.0,11.0,11.0,3.0,3.0,3.0,1.0,2.0,0.0,3.0,0.0,1.0,0.0,1.0,0.0,0.0,6.0,11.0,7.0,9.0,10.0,4.0,0.0,1.0,0.0,3.0,2.0,0.0,2.0,0.0,10.0,7.0,27.0,37.0,93.0,199.0,250.0,360.0,541.0,589.0,581.0,760.0,762.0,540.0,473.0,450.0,225.0,219.0,66.0,76.0,74.0,52.0,32.0,25.0,15.0,18.0,13.0,9.0,9.0,1.0,9.0,3.0,0.0,5.0,5.0,4.0,3.0,7.0,6.0,0.0,3.0,3.0,7.0,3.0,3.0,10.0,9.0,11.0,12.0,30.0,39.0,80.0,156.0,249.0,558.0,1311.0,1227.0,995.0,1109.0,1601.0,1849.0,1783.0,1855.0,1347.0,911.0,1510.0,646.0,520.0,199.0,263.0,277.0,194.0,89.0,22.0,10.0,13.0,22.0,13.0,16.0,13.0,14.0,9.0,7.0,10.0,7.0,3.0,6.0,2.0,3.0,3.0,1.0,2.0,0.0,7.0,4.0,5.0,1.0,1.0,19.0,26.0,32.0,37.0,47.0,75.0,161.0,245.0,383.0,494.0,917.0,1199.0,1801.0,2381.0,2184.0,2247.0,2229.0,2212.0,2159.0,1944.0,1988.0,883.0,579.0,257.0,105.0,50.0,22.0,13.0,7.0,9.0,5.0,4.0,11.0,9.0,4.0,8.0,6.0,3.0,9.0,6.0,7.0,5.0,4.0,8.0,4.0,0.0,5.0,2.0,3.0,2.0,1.0,1.0,0.0,2.0,0.0,1.0,1.0,1.0,1.0,1.0,0.0,1.0,0.0,0.0,0.0,0.0,1.0,0.0,3.0,1.0,1.0,1.0,1.0,0.0,0.0,1.0,1.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,2.0,0.0,0.0,0.0,0.0,null,null,null,null],"mosquitos":[0.4171122994652406,0.5037433155080214,0.5433155080213904,0.5786096256684492,0.6209016393442623,0.3830845771144278,0.2895522388059701,0.543369890329013,0.7506726457399103,0.6617132867132867,0.5349040139616056,0.5235602094240838,0.4458041958041958,0.1765734265734265,0.1633825944170771,0.1551724137931034,0.0779967159277504,0.041871921182266,0.0328407224958949,0.0131362889983579,0.0090311986863711,0.0048732943469785,0.0041084634346754,0.000914913083257,0.0090311986863711,0.0032894736842105,0.0024630541871921,0.0008210180623973,0.0016420361247947,0.0032840722495894,0.0032840722495894,0.0082101806239737,0.028735632183908,0.0426929392446633,0.0500821018062397,0.0829228243021346,0.0763546798029556,0.0878489326765188,0.1075533661740558,0.1091954022988505,0.1529605263157894,0.1822660098522167,0.2049180327868852,0.2059336823734729,0.1728971962616822,0.2029520295202952,0.197841726618705,0.3476263399693721,0.2815829528158295,0.3138105567606652,0.3168963016678752,0.2905308464849354,0.3764367816091954,0.3190578158458244,0.4058514628657164,0.3052180128663331,0.4649184975194897,0.4340974212034384,0.4355524079320113,0.4045102184637068,0.3169864960909737,0.3578047042052744,0.3944610778443114,0.3824160114367405,0.3090007087172218,0.4341359773371104,0.2532005689900427,0.2312588401697312,0.2421652421652421,0.3403298350824588,0.268511593118923,0.1161048689138576,0.0344332855093256,0.0482213438735177,0.0149501661129568,0.0196428571428571,0.0108423686405337,0.0091807909604519,0.0066815144766146,0.0156494522691705,0.0157232704402515,0.0033277870216306,0.0065604498594189,0.0142405063291139,0.0264211369095276,0.0219364599092284,0.0324528301886792,0.0248226950354609,0.0285510349750178,0.0711237553342816,0.0570613409415121,0.1058238636363636,0.1823486506199854,0.1357938718662952,0.1656005685856432,0.1577444682369735,0.1862971516551193,0.1840390879478827,0.2509897070467142,0.2273062730627306,0.2588235294117647,0.3134110787172011,0.3250183418928833,0.3162518301610542,0.3539367181751288,0.2954356846473029,0.2763975155279503,0.3543247344461305,0.3578544061302682,0.2920696324951644,0.3778580024067389,0.3206521739130434,0.2538126361655773,0.2581005586592179,0.3329682365826944,0.3598183881952327,0.2222222222222222,0.1701890989988876,0.0970982142857142,0.1021978021978022,0.0436241610738255,0.0554323725055432,0.1270783847980997,0.035799522673031,0.008827238335435,0.0093959731543624,0.0146666666666666,0.0126742712294043,0.0138713745271122,0.0167664670658682,0.0178784266984505,0.0074441687344913,0.0120643431635388,0.0041379310344827,0.0028490028490028,0.0064020486555697,0.0168612191958495,0.0126760563380281,0.0307692307692307,0.0268741159830268,0.0348387096774193,0.0373230373230373,0.0434782608695652,0.0483091787439613,0.049757281553398,0.1065830721003134,0.0939794419970631,0.2122641509433962,0.3263598326359833,0.3206521739130434,0.418732782369146,0.3248945147679324,0.3223249669749009,0.2907133243606998,0.3092643051771117,0.7240932642487047,0.7313019390581718,0.596100278551532,0.6183006535947713,0.4649006622516556,0.5518102372034956,0.4821648216482165,0.5293398533007335,0.6862026862026862,1.6931407942238268,1.1219806763285023,0.8764434180138568,0.588963963963964,0.3629300776914539,0.2643553629469122,0.157725321888412,0.0980187695516162,0.1120418848167539,0.0785123966942148,0.0246659815005138,0.0124481327800829,0.0102354145342886,0.022,0.0105374077976817,0.010351966873706,0.0,0.0061162079510703,0.0059405940594059,0.0043010752688172,0.01,0.0141242937853107,0.0229357798165137,0.0190677966101694,0.0775,0.0614525139664804,0.0922818791946308,0.15,0.1536050156739812,0.2103559870550161,0.2188782489740082,0.1968085106382978,0.292225201072386,0.342443729903537,0.4619289340101523,0.3908685968819599,0.5638179800221975,0.6541524459613197,0.9621802002224694,0.6906873614190687,0.7056229327453142,0.5534729878721059,0.5411499436302142,0.934589800443459,0.8050660792951542,0.752262443438914,0.6822323462414579,1.096244131455399,0.963677639046538,1.256902761104442,1.339002267573696,1.0311778290993072,0.7681365576102418,0.994904458598726,1.0435897435897437,0.4819277108433735,0.8200692041522492,0.288837744533947,0.2637485970819304,0.1407982261640798,0.0991189427312775,0.0449308755760368,0.0233333333333333,0.0121951219512195,0.0144124168514412,0.0066225165562913,0.0149253731343283,0.0273224043715847,0.0,0.0,0.0,null,0.0662983425414364,0.0481927710843373,0.0402298850574712,0.0263473053892215,0.0250569476082004,0.0156075808249721,0.0194508009153318,0.0324748040313549,0.0493273542600896,0.0718358038768529,0.0432852386237513,0.0686936936936937,0.1097285067873303,0.1452894438138479,0.1428571428571428,0.1698754246885617,0.1430429128738621,0.3367198838896952,0.4138398914518317,0.7045720984759671,0.5067873303167421,0.4779161947904869,0.3923566878980892,1.227633069082673,1.0124293785310734,0.5510455104551045,0.5106145251396648,0.5861678004535147,2.1798882681564247,1.7882219705549265,1.0079455164585698,0.764294049008168,1.0101925254813138,1.6522727272727271,1.245475113122172,1.00187617260788,0.6723356009070295,0.6636670416197975,1.1309794988610478,1.1901489117983963,0.8933177022274326,0.6301587301587301,0.2079905992949471,0.3066361556064073,0.2064896755162241,0.1661392405063291,0.0871613663133097,0.1220930232558139,0.1342756183745583,0.1302774427020506,0.0761904761904762,0.1658878504672897,0.1063084112149532,0.12784588441331,0.1267605633802817,0.1365131578947368,0.0793237971391417,0.0995203836930455,0.1492178098676293,0.184757505773672,0.1993127147766323,0.2956852791878173,0.2806818181818182,0.3371924746743849,0.3013544018058691,0.4131668558456299,0.3599088838268792,0.3993095512082854,1.0823798627002288,0.7153748411689962,0.645320197044335,0.7168674698795181,0.5585443037974683,1.1465116279069767,1.2939814814814814,1.8866348448687351,1.3858695652173914,1.1296518607442978,1.9345794392523368,1.7001153402537486,0.9817351598173516,0.9149425287356322,0.8809801633605601,1.7904191616766467,1.022673031026253,0.8323831242873432,0.9022727272727272,null,null,null,0.0,0.0842911877394636,0.2854640980735551,0.266304347826087,0.2922755741127348,0.1837672281776416,0.0600490196078431,0.0353982300884955,0.0176470588235294,0.0410958904109589,0.0470035252643948,0.0531914893617021,0.017220172201722,0.0209790209790209,0.017412935323383,0.0270588235294117,0.0188679245283018,0.0129366106080207,0.0284237726098191,0.0368020304568527,0.0521885521885521,0.1119402985074626,0.185006045949214,0.1848225214198286,0.2203196347031963,0.1475972540045766,0.2465057179161372,0.3356481481481481,0.479064039408867,0.4168797953964194,0.4917647058823529,0.525035765379113,0.8408759124087591,0.891566265060241,0.95707656612529,0.9733178654292344,0.9500594530321046,1.0345224395857306,1.3726937269372694,0.6686320754716981,0.9545983701979044,1.7041499330655958,1.0581527936145951,0.8752834467120182,1.132118451025057,1.6757679180887373,0.7241770715096482,0.7186046511627907,1.1059907834101383,0.9354094579008074,1.020408163265306,0.7815699658703071,0.6114285714285714,0.3174342105263157,0.1626848691695108,0.1191294387170675,0.1189024390243902,0.0840046029919447,0.0196759259259259,0.0214932126696832,0.0073891625615763,0.0148911798396334,0.0034762456546929,0.0082159624413145,0.0022650056625141,0.0011778563015312,0.0011376564277588,0.0121457489878542,0.0103806228373702,0.0308924485125858,0.0559360730593607,0.0742049469964664,0.0766590389016018,0.1396140749148694,0.1590909090909091,0.2407407407407407,0.2063492063492063,0.1970387243735763,0.2355658198614318,0.2875,0.5368898978433598,0.573943661971831,0.3965317919075145,0.4749034749034749,0.5383244206773619,1.0107398568019093,1.0732558139534885,0.9150174621653084,0.9405594405594404,0.9028436018957346,1.2020833333333334,1.5106990014265336,1.1012805587892898,1.1695303550973657,1.172811059907834,1.3393070489844685,0.9710648148148148,1.066125290023202,1.3523375142531358,0.8838268792710706,1.1878531073446328,0.6948571428571428,0.5843454790823212,0.5480649188514357,0.3117913832199546,0.1356898517673888,0.1844215349369988,0.2017114914425428,0.0523321956769055,0.0344036697247706,0.0123595505617977,0.0,0.0090497737556561,0.0057251908396946,0.0155148095909732,0.0157303370786516,0.0228136882129277,0.03172737955346651,0.03436426116838488,0.09239766081871345,0.06553398058252427,0.024719101123595506,0.03414634146341464,0.02666666666666667,0.02378255945639864,0.032507739938080496,0.02383654937570942,0.09378531073446328],"temperatura":[23.692857142857143,24.585714285714285,23.811428571428568,22.834285714285716,22.372857142857143,22.17,21.375714285714285,22.63,21.375714285714288,23.66,22.055714285714288,20.6,15.69,12.188571428571429,17.344285714285714,11.767142857142858,13.008571428571427,12.920000000000002,14.118571428571428,14.478571428571428,12.26142857142857,17.025714285714283,13.598571428571429,12.328571428571433,11.864285714285714,14.157142857142857,12.752857142857144,14.762857142857143,15.40857142857143,16.842857142857145,19.56571428571429,20.944285714285716,17.925714285714285,19.97714285714286,19.557142857142857,19.46857142857143,19.714285714285715,21.011428571428574,23.63285714285714,21.174285714285713,21.625714285714285,18.511428571428574,24.395714285714288,25.01285714285714,23.941428571428567,25.84857142857143,25.61714285714286,25.478571428571428,24.80857142857143,28.718571428571423,23.84142857142857,24.224285714285717,26.078571428571426,23.165714285714284,25.42142857142857,22.48571428571429,21.24142857142857,21.545714285714286,24.242857142857144,20.85,21.729999999999997,21.59,20.24142857142857,20.127142857142857,17.697142857142858,18.244285714285716,16.28857142857143,15.827142857142857,19.711428571428577,17.52,16.64,10.088571428571427,12.505714285714284,13.02142857142857,16.615714285714287,13.769999999999998,15.384285714285712,13.352857142857143,11.754285714285714,17.472857142857144,13.239999999999997,18.987142857142857,17.181428571428572,15.205714285714285,20.585714285714285,21.041428571428572,19.44857142857143,17.84,23.327142857142857,20.654285714285717,21.298571428571424,22.277142857142856,21.147142857142857,20.81571428571428,22.70571428571429,22.865714285714283,24.014285714285712,25.608571428571427,26.235714285714288,23.935714285714287,24.372857142857143,25.61714285714286,26.77428571428572,24.427142857142854,25.012857142857143,22.842857142857145,22.617142857142856,26.61714285714286,24.255714285714287,24.49142857142857,23.568571428571428,18.454285714285714,18.764285714285716,21.13571428571429,20.59714285714286,16.695714285714285,16.715714285714284,18.44,14.47857142857143,14.078571428571426,17.19142857142857,16.42,16.93857142857143,10.494285714285713,11.998571428571427,11.15,18.167142857142856,11.05,17.204285714285714,15.23857142857143,11.834285714285713,17.301428571428573,14.772857142857143,17.56714285714286,16.935714285714287,15.985714285714282,19.629999999999995,16.661428571428573,17.747142857142858,21.270000000000003,19.16,17.492857142857144,21.784285714285716,19.574285714285715,22.665714285714284,22.73142857142857,22.747142857142855,24.610000000000003,22.96142857142857,24.73857142857143,26.10285714285714,25.93428571428571,23.818571428571428,25.712857142857143,24.59428571428571,24.04857142857143,24.534285714285712,25.18428571428571,24.65857142857143,23.49,24.50428571428571,23.788571428571423,21.294285714285714,24.532857142857143,22.65142857142857,21.178571428571427,17.955714285714286,18.25,15.081428571428573,15.018571428571429,13.772857142857143,14.631428571428572,15.258571428571427,12.437142857142858,14.69,10.15,13.874285714285714,14.984285714285717,11.51857142857143,11.382857142857144,13.745714285714286,14.781428571428572,18.724285714285713,16.134285714285713,18.424285714285713,16.95,17.804285714285715,17.754285714285714,19.018571428571427,16.204285714285714,20.197142857142858,17.444285714285716,20.627142857142857,23.025714285714283,18.65571428571429,20.662857142857145,22.85,21.884285714285713,20.94,23.968571428571433,24.21857142857143,25.944285714285716,24.620000000000005,26.29428571428571,28.91714285714286,26.701428571428572,25.807142857142857,24.467142857142857,24.49571428571429,26.814285714285713,27.945714285714285,24.972857142857144,22.84,21.255714285714287,19.185714285714287,20.07857142857143,19.527142857142856,18.951428571428572,19.474285714285713,16.43,15.710000000000004,12.679999999999998,16.22857142857143,10.94857142857143,13.728571428571428,11.944285714285716,12.512857142857142,12.845714285714283,17.090000000000003,16.35,15.46,16.937142857142856,14.331428571428573,14.179999999999998,13.580000000000002,16.517142857142858,12.992857142857144,16.1,15.275714285714288,14.817142857142857,16.507142857142856,16.654285714285713,16.545714285714286,19.58285714285714,20.512857142857143,16.59857142857143,18.424285714285713,21.72714285714286,21.881428571428568,23.86285714285714,24.59857142857143,23.042857142857144,22.448571428571427,23.37857142857143,25.427142857142854,25.74142857142857,26.332857142857147,28.40857142857143,27.07571428571428,26.821428571428573,25.738571428571426,22.712857142857143,25.24571428571429,25.444285714285716,27.142857142857142,25.825714285714287,23.611428571428572,21.49285714285714,22.87,18.59142857142857,20.497142857142855,20.84,16.795714285714283,16.88857142857143,19.97,16.924285714285713,19.385714285714283,12.511428571428567,14.41,16.961428571428574,16.830000000000002,13.791428571428572,13.151428571428571,15.092857142857143,16.752857142857142,16.94142857142857,15.725714285714288,15.5,14.367142857142856,17.10571428571429,16.89142857142857,21.945714285714285,17.338571428571427,16.894285714285715,16.97,18.76285714285714,20.33285714285714,20.145714285714288,20.991428571428568,21.477142857142855,20.42571428571429,23.617142857142856,21.590000000000003,25.311428571428568,25.92571428571429,22.794285714285714,22.711428571428577,25.138571428571424,25.658571428571427,21.418571428571425,23.35571428571429,26.698571428571427,24.79285714285714,24.711428571428577,25.42428571428572,23.435714285714283,25.34142857142857,24.732857142857146,23.187142857142856,23.407142857142855,22.197142857142858,20.800000000000004,21.178571428571427,21.237142857142857,20.914285714285715,13.684285714285712,15.798571428571426,12.88,16.687142857142856,19.95,18.93285714285714,12.677142857142856,9.917142857142858,9.022857142857143,14.11,17.445714285714285,15.995714285714286,15.307142857142855,12.2,17.024285714285714,14.092857142857142,14.754285714285714,19.58857142857143,17.630000000000003,20.22,18.851428571428578,18.93285714285714,19.62857142857143,22.049999999999994,21.5,22.66857142857143,20.81571428571428,21.527142857142856,23.88714285714286,21.97714285714286,21.427142857142854,22.02428571428572,21.33857142857143,23.851428571428567,22.108571428571427,24.49571428571429,26.731428571428573,24.385714285714293,27.187142857142856,27.08857142857143,25.01571428571429,27.687142857142856,28.877142857142857,22.228571428571428,23.46857142857143,25.231428571428573,23.041428571428575,20.96,20.28142857142857,19.467142857142857,17.882857142857144,21.042857142857144,19.07,17.274285714285714,15.335714285714287,13.781428571428572,11.747142857142856,15.262857142857142,9.732857142857142,9.01,12.332857142857142,14.241428571428573,14.072857142857142,13.694285714285712,13.04714285714286,12.487142857142857,17.155714285714286,14.4,17.057142857142857,14.787142857142856,19.581428571428575,15.997142857142858,19.389999999999997,18.65571428571429,19.43428571428572,18.648571428571422,17.84857142857143,19.247142857142855,20.107142857142858,20.451428571428572,21.390000000000004,22.021428571428572,23.215714285714284,23.335714285714285,26.762857142857143,24.824285714285715,23.035714285714285,26.04714285714286,22.048571428571428,25.4,25.195714285714285,26.45,25.615714285714287,23.37,25.02,22.921428571428567,26.264285714285712,25.444285714285716,25.735714285714288,22.294285714285714,23.49285714285714,21.66,17.42857142857143,18.571428571428573,12.68142857142857,12.65857142857143,15.688571428571429,16.617142857142856,14.921428571428573,11.257142857142856,9.53285714285714,11.728571428571428,12.007142857142856,15.911428571428573,17.767142857142854,18.298571428571424,17.265714285714285,13.278571428571428,17.372857142857143,14.395714285714286,15.197142857142856,13.377142857142857,14.198571428571428,17.415714285714284,17.104285714285712,18.812857142857144,16.56714285714286,17.15,17.315714285714286],"temperatura_maxima":[31.1,30.55,32.99,34.91,34.04,28.5,28.42,30.91,30.29,30.0,30.58,29.85,26.26,23.12,26.1,19.67,26.7,25.47,21.92,25.3,22.79,26.21,20.49,20.9,23.15,23.16,26.19,26.48,24.52,24.09,29.51,29.45,28.25,28.76,29.72,27.47,29.52,30.31,31.36,30.62,28.2,25.76,33.64,32.36,31.73,35.91,32.27,31.31,32.16,36.55,35.21,32.99,36.21,35.47,35.19,28.97,29.63,31.31,32.82,29.26,30.3,29.49,28.22,26.84,24.99,24.73,20.35,23.25,26.98,26.94,27.57,22.06,22.8,24.3,25.45,25.6,25.89,26.14,19.5,28.11,25.62,30.69,30.35,24.26,31.49,33.99,30.56,27.31,31.97,27.28,28.08,31.86,31.68,30.19,32.14,33.06,33.9,35.13,35.91,33.93,34.19,33.54,35.88,34.67,36.97,33.66,31.52,38.86,34.2,34.29,33.46,30.04,29.25,32.62,32.4,27.41,30.81,28.46,23.62,21.78,28.34,26.25,26.87,17.7,18.95,26.72,26.77,22.28,25.72,26.44,23.92,28.6,26.53,26.63,25.33,27.73,32.94,24.49,25.59,29.9,28.77,26.59,30.21,27.56,34.98,29.69,34.7,32.98,30.39,35.49,35.58,36.21,31.29,33.08,32.95,30.77,32.54,35.34,31.25,31.85,33.7,31.89,28.03,34.88,35.58,30.16,27.62,32.93,26.4,22.67,21.62,28.2,21.37,22.0,21.41,18.83,22.8,23.41,26.59,26.98,26.42,27.01,30.61,28.86,27.66,25.13,30.8,29.87,27.59,24.08,29.54,27.88,29.91,29.93,26.62,30.94,34.91,29.73,29.49,34.21,34.78,35.82,39.02,37.84,38.86,38.63,36.95,35.74,34.1,36.78,38.57,35.47,34.63,31.08,31.7,25.64,26.67,28.21,31.34,21.64,23.29,19.26,25.1,19.56,21.22,21.97,19.05,23.17,24.9,25.59,25.72,26.39,24.92,22.08,25.43,27.07,25.22,27.24,22.44,22.91,24.2,26.11,24.82,25.56,30.96,29.44,25.97,29.14,30.39,33.01,33.05,33.75,33.98,35.15,36.61,37.23,36.35,37.68,35.11,36.54,39.31,30.46,33.55,33.25,35.88,36.1,33.47,30.75,33.39,29.01,29.46,30.07,26.9,26.16,29.45,26.33,28.39,16.95,23.72,25.92,24.94,21.74,25.77,25.51,25.48,27.11,28.7,28.31,24.96,23.92,29.75,31.44,24.01,24.94,27.03,25.87,28.93,29.28,31.92,27.72,31.29,32.05,27.61,33.96,34.71,31.24,30.1,32.82,32.82,26.5,31.87,33.95,35.02,32.19,32.18,31.92,33.89,34.17,30.48,31.51,30.07,27.36,31.16,26.91,29.31,21.64,27.01,20.5,25.51,26.31,26.46,25.0,19.79,15.14,23.12,25.0,26.3,25.74,22.56,26.44,24.72,23.99,28.08,26.3,30.78,30.6,23.74,25.07,31.59,28.88,29.51,30.79,33.28,32.06,32.31,29.1,29.57,29.53,31.74,27.87,33.18,33.56,31.68,35.48,38.83,33.06,36.66,37.62,28.93,33.29,32.71,36.6,28.21,29.9,29.59,27.39,31.94,27.96,30.77,27.53,23.06,20.13,22.41,19.22,18.02,19.56,23.69,21.95,25.14,19.37,20.67,28.14,25.58,27.4,22.25,28.0,24.59,27.98,32.12,26.53,30.08,26.57,27.7,30.32,30.21,31.71,32.56,32.18,32.38,32.43,32.13,32.54,35.26,29.64,34.67,36.37,38.72,33.46,31.31,35.46,31.2,36.69,35.68,34.75,34.55,31.36,31.05,29.27,30.23,22.25,19.72,22.76,25.63,20.86,17.77,20.0,19.59,21.69,30.13,30.18,27.19,24.59,22.73,28.14,28.03,25.06,20.63,23.05,27.85,27.02,26.8,21.53,25.97,24.43],"umidade":[78.58,80.95285714285716,72.49571428571429,71.79285714285713,79.35714285714286,87.78714285714285,87.31714285714285,81.07428571428571,78.12285714285714,82.73142857142857,86.00999999999999,82.30285714285712,82.30142857142857,82.14999999999999,84.3757142857143,83.07000000000001,83.42,86.72285714285714,90.54285714285716,88.60857142857142,85.94714285714284,87.43000000000002,90.86571428571428,85.49,86.37285714285714,86.39857142857143,85.25,83.10571428571428,86.24428571428572,88.30571428571429,85.01285714285713,88.84,81.10571428571427,83.38857142857144,82.47428571428573,81.93428571428572,83.29142857142857,82.26714285714286,79.60714285714286,81.11142857142856,81.69714285714285,70.90285714285714,80.69142857142856,85.97142857142856,80.77,79.91285714285713,84.04,85.84,82.71285714285715,75.46714285714287,71.22857142857143,76.26142857142857,71.99714285714286,71.98714285714287,78.65714285714286,79.81571428571428,79.14,73.93857142857144,79.31999999999998,81.6842857142857,81.80857142857143,85.2042857142857,86.09714285714287,88.91857142857144,88.26714285714286,89.55142857142857,91.5342857142857,88.01142857142858,88.51428571428572,84.97142857142856,82.54428571428572,78.98142857142857,85.0185714285714,88.98428571428569,90.56857142857145,85.79142857142857,86.7842857142857,85.95,84.07142857142857,85.42428571428572,80.18999999999998,87.41999999999999,83.96857142857142,80.73857142857143,84.85714285714286,81.51,84.89999999999999,81.32714285714287,86.59714285714286,85.73142857142857,82.71000000000001,80.58142857142857,76.5642857142857,74.30857142857143,75.14857142857143,79.48571428571428,72.48285714285713,76.25285714285714,74.14285714285714,71.29571428571428,75.38285714285713,74.4557142857143,71.89571428571428,68.04142857142858,68.41142857142857,67.90428571428572,70.67142857142856,66.08285714285714,75.49571428571429,66.61142857142858,70.25428571428571,72.94285714285714,69.98,69.08999999999999,68.38857142857144,67.81,76.28,78.66714285714286,76.63571428571429,84.79285714285713,84.7942857142857,86.98428571428573,80.17571428571429,85.01857142857143,90.54142857142855,85.59,84.56571428571428,86.02285714285713,84.44428571428571,85.90142857142857,79.22428571428573,85.36857142857143,86.82428571428571,90.3685714285714,85.7685714285714,80.06714285714285,86.66142857142857,84.30571428571429,82.85428571428572,84.02,81.14285714285714,79.84285714285714,85.63142857142859,80.38,81.62285714285714,79.6842857142857,80.59714285714287,81.38,72.54285714285713,70.38,67.46142857142857,71.64999999999999,78.37428571428572,82.87142857142855,80.90571428571427,76.22142857142856,71.06285714285715,69.80142857142857,79.07000000000001,70.23857142857143,74.19285714285715,84.96571428571428,77.13714285714286,69.79857142857144,69.31428571428572,73.61857142857143,74.72285714285714,75.09571428571428,77.81142857142858,81.42285714285715,78.88571428571427,80.11142857142859,89.00142857142858,85.73,88.65857142857145,83.62571428571428,87.21857142857142,88.27857142857142,77.16571428571429,77.67285714285715,86.34285714285716,83.23142857142857,86.55999999999999,84.24714285714286,81.74285714285715,84.91571428571429,84.36714285714285,84.00428571428573,85.78285714285714,79.46714285714286,83.26142857142858,79.26142857142858,73.0442857142857,81.21714285714283,73.78857142857144,76.55428571428571,72.44285714285715,74.43857142857142,75.39857142857143,78.91857142857143,68.30857142857143,65.14142857142858,71.75571428571429,65.11857142857144,76.28428571428572,72.29142857142858,72.84285714285714,66.97571428571428,65.41857142857143,68.76571428571428,67.83857142857143,78.10571428571428,77.96571428571428,74.68285714285716,74.31142857142858,89.53857142857143,82.13,77.4342857142857,82.76428571428572,86.7842857142857,87.55571428571429,85.74571428571429,89.3457142857143,84.71714285714286,88.31285714285714,84.57428571428572,91.6442857142857,88.13571428571427,89.74,87.28857142857143,88.10571428571428,87.95571428571428,88.07000000000001,88.42571428571429,83.14857142857143,84.27285714285713,83.80714285714285,82.67714285714285,84.2957142857143,83.30285714285715,83.37714285714287,82.78285714285714,80.73285714285714,86.11571428571428,80.63,77.36857142857141,84.50571428571428,75.92285714285715,80.45142857142858,82.16428571428573,81.4057142857143,69.96,74.82571428571428,69.03285714285715,64.69142857142856,68.66142857142857,73.49000000000001,67.65142857142857,70.85857142857142,65.22428571428571,64.45285714285714,77.04857142857145,75.92571428571429,80.76571428571428,70.30714285714285,74.26142857142857,71.32428571428572,73.49571428571429,71.64428571428572,71.01857142857143,74.93857142857142,86.54571428571428,82.63,78.22,78.45857142857143,74.60428571428572,74.14857142857143,84.18714285714286,89.74000000000001,84.98428571428572,86.44142857142856,87.92142857142856,84.19428571428571,87.40142857142857,87.10857142857142,83.0657142857143,79.27571428571427,80.16142857142857,83.10000000000001,88.81999999999998,84.6542857142857,87.81142857142856,87.74714285714286,84.26142857142858,85.17714285714285,85.35285714285715,86.96000000000001,86.0257142857143,84.07714285714285,91.18,81.37571428571428,87.66,85.91142857142857,83.17285714285715,85.27571428571427,80.26428571428572,83.37285714285716,84.48142857142857,86.12714285714287,80.68714285714285,81.98,82.75,80.72,83.05571428571429,84.46571428571428,78.71285714285715,80.24428571428572,78.28714285714285,78.45142857142856,78.77714285714286,85.01428571428572,84.22285714285714,83.92142857142858,90.98571428571428,87.33857142857143,84.51428571428572,90.34285714285714,88.99428571428572,89.81142857142856,88.33714285714287,92.2385714285714,86.91571428571429,84.8,90.54428571428572,92.53142857142858,90.10285714285716,87.31285714285715,90.55571428571427,84.66142857142857,88.9042857142857,86.7057142857143,86.28571428571429,91.03428571428572,86.39285714285714,89.18571428571428,82.77,89.54999999999998,84.53428571428572,82.67,82.15571428571427,85.67857142857143,75.95142857142856,83.17714285714285,82.46571428571428,78.37142857142858,81.46000000000001,82.22285714285714,78.11142857142856,79.88714285714285,76.86285714285714,78.98285714285714,77.93714285714286,80.24571428571429,75.44857142857143,72.82142857142857,82.95142857142856,78.82857142857142,68.66571428571429,74.52,72.67,74.06714285714284,73.63142857142857,82.50285714285714,79.60285714285715,76.89142857142858,72.63428571428571,75.57571428571427,78.90285714285713,78.24142857142856,87.24857142857142,87.01857142857143,86.23,92.70428571428572,80.82714285714285,86.8442857142857,88.54,88.97,87.60142857142857,86.51428571428572,90.28857142857144,83.66428571428571,85.19571428571429,81.54714285714284,84.91714285714285,83.6542857142857,85.86,79.85285714285715,88.08285714285715,81.36,85.25142857142858,76.31285714285714,83.03428571428572,81.63857142857144,78.87857142857142,76.49000000000001,79.32857142857142,80.58714285714287,83.06857142857143,75.89857142857143,83.37,80.73000000000002,75.08857142857143,76.2042857142857,73.77,75.34,72.28571428571429,70.32571428571428,75.54285714285713,72.14142857142858,70.89857142857143,74.72571428571428,75.42857142857143,81.0557142857143,72.69285714285715,72.99428571428571,74.22428571428573,78.85142857142856,71.22285714285715,77.43142857142857,75.93714285714285,81.58714285714287,87.25142857142859,83.08142857142856,89.08000000000001,81.10285714285715,79.60571428571428,87.20571428571428,81.2,77.86571428571429,86.3157142857143,90.1542857142857,86.45857142857143,83.9057142857143,86.52714285714286,85.54142857142857,85.18571428571428,84.71285714285715,82.94571428571429,83.32000000000001,86.90285714285714,86.67714285714285,89.1542857142857,84.29142857142857,82.51571428571428],"pressao":[100.5514285714286,100.86,100.63428571428572,100.5457142857143,100.65999999999998,101.06285714285714,100.68714285714285,101.30428571428573,101.60857142857142,101.21428571428572,101.21142857142856,101.33571428571427,101.11714285714284,101.65,101.31857142857142,101.56285714285715,101.44857142857144,101.69714285714284,101.28285714285714,101.24428571428572,101.74571428571429,101.18285714285716,101.76,101.47714285714288,101.42285714285713,101.77857142857144,101.5085714285714,101.38285714285712,101.42142857142856,101.32285714285716,100.83714285714288,100.78285714285714,101.17,100.97285714285714,101.00571428571428,101.03142857142858,100.80714285714284,101.20714285714284,100.57428571428572,100.79714285714284,100.82714285714287,101.03428571428572,100.94142857142856,100.63714285714286,100.71,100.60571428571428,100.67857142857144,100.73714285714286,100.99142857142856,100.78571428571428,100.99714285714286,100.77857142857144,100.64,100.74,100.89,101.03285714285714,100.97285714285714,101.44142857142856,100.70857142857145,101.16285714285712,100.9414285714286,101.1542857142857,100.89285714285714,101.02142857142856,101.71428571428572,101.06142857142858,101.03142857142858,101.71857142857144,101.35571428571428,101.62857142857142,100.92142857142856,101.27142857142856,101.58857142857144,101.72,101.45285714285714,101.49285714285716,101.79142857142855,101.75142857142858,102.05571428571427,101.35285714285716,101.67,101.04857142857142,100.87571428571428,101.81142857142856,100.79142857142855,101.09571428571428,101.32714285714287,101.1,100.63571428571429,100.76428571428572,100.88285714285716,100.9157142857143,100.74285714285716,100.79285714285712,100.73,100.61857142857144,100.80571428571427,100.60285714285716,100.35,101.02428571428572,100.67285714285715,100.61142857142856,100.90142857142855,100.9985714285714,100.72857142857144,100.94857142857144,101.32,100.91428571428573,100.74428571428572,101.12,100.87428571428572,101.29142857142858,101.26,101.27142857142856,101.4557142857143,101.3814285714286,101.20571428571428,101.05285714285716,101.18428571428572,101.41142857142856,100.92857142857144,101.45142857142858,101.00714285714284,101.16285714285712,101.18,101.49714285714283,101.11428571428571,101.9157142857143,101.91142857142856,100.94285714285716,101.57857142857142,101.15857142857142,101.59571428571428,101.16857142857144,101.1542857142857,101.48428571428568,100.66857142857144,101.06,101.28,101.07142857142856,100.76285714285711,101.41428571428573,100.84285714285714,100.89,101.0657142857143,100.79714285714286,100.84714285714286,100.48857142857142,100.83428571428573,100.69714285714284,100.53142857142858,100.75142857142858,101.0457142857143,100.29,100.49714285714286,100.88571428571426,100.38571428571429,100.95571428571428,100.67142857142856,100.7942857142857,100.84714285714288,100.99714285714286,100.99857142857142,101.15857142857142,101.10714285714288,101.33142857142856,101.43285714285716,101.47714285714284,101.62714285714284,101.0657142857143,100.88142857142856,101.19285714285716,101.43571428571428,101.80857142857144,101.27285714285712,101.89571428571428,101.71,101.23428571428572,101.76142857142855,101.60142857142856,102.20857142857142,101.70571428571428,100.9485714285714,100.90857142857143,101.3685714285714,100.93571428571428,101.15857142857142,101.27,100.95142857142858,101.16285714285712,100.81000000000002,101.19714285714284,101.33571428571427,100.78857142857144,101.36,100.88857142857144,100.49857142857144,100.55714285714284,101.1185714285714,100.67571428571428,100.65857142857143,100.53,100.59,100.85857142857142,100.62000000000002,100.57714285714285,100.47,100.78857142857144,100.69857142857144,100.82285714285716,100.60428571428572,100.74285714285712,100.9657142857143,100.91428571428573,101.28857142857144,101.07285714285716,101.03285714285714,101.03,101.01999999999998,101.41428571428573,101.33857142857144,101.23285714285711,101.34714285714286,101.45000000000002,101.26571428571428,101.35714285714286,101.35,101.29,101.28142857142858,100.73142857142857,101.44857142857144,101.1614285714286,101.1314285714286,101.71714285714286,101.22571428571428,101.58571428571427,101.86,101.35428571428572,101.55285714285716,101.12,101.50428571428571,100.86571428571428,101.55285714285716,101.01,100.78285714285713,101.6642857142857,101.32142857142856,100.85,100.94142857142856,100.61428571428571,100.54571428571428,100.51857142857143,100.97571428571428,100.79714285714284,100.82571428571428,100.67857142857144,100.88714285714286,100.44285714285716,100.4785714285714,100.7285714285714,100.37,101.02,100.89285714285714,100.68857142857144,100.98142857142857,100.98857142857142,100.96,101.17571428571428,101.02428571428572,100.81285714285714,101.21285714285716,101.1114285714286,101.36571428571428,101.43857142857142,101.19285714285714,101.61,101.28857142857144,101.76142857142858,101.36571428571428,101.46857142857142,101.22857142857144,101.00571428571428,101.92,101.65142857142858,101.54142857142855,101.37285714285714,101.13,100.67285714285715,101.45428571428572,101.10714285714288,100.99,100.71142857142856,100.98714285714286,100.71571428571428,101.30714285714284,101.25428571428571,100.49857142857142,100.52857142857144,100.81857142857145,100.16428571428573,100.98428571428572,100.69428571428573,100.99571428571429,100.67714285714284,100.5557142857143,100.77714285714286,100.8614285714286,100.65857142857142,100.50285714285714,101.2942857142857,101.00428571428571,100.90714285714286,100.94571428571427,100.61,100.91,100.95285714285716,100.73857142857142,100.77428571428572,101.09714285714288,100.92,101.06428571428572,101.01428571428572,100.79285714285716,100.51428571428572,100.75428571428571,101.2,101.23857142857142,101.76428571428572,101.59285714285716,100.94428571428573,100.86428571428571,101.17,101.5942857142857,102.0442857142857,102.03,101.51285714285711,101.57571428571428,101.25428571428571,101.50142857142858,101.13,101.85285714285712,101.22428571428571,100.8457142857143,101.32142857142856,100.7942857142857,101.05571428571427,100.97142857142856,101.22571428571428,100.58857142857144,101.06142857142858,100.7757142857143,100.7842857142857,101.08142857142856,100.65285714285712,100.51,100.70714285714288,100.61428571428571,100.82714285714285,100.53428571428572,100.75857142857144,100.64142857142858,100.5757142857143,100.6857142857143,100.57,100.69,100.87571428571428,100.88,101.01142857142858,101.19857142857144,101.23428571428572,100.85,101.18857142857142,101.21857142857142,101.0657142857143,100.96285714285716,101.23428571428572,101.00714285714288,101.64,101.51,101.26571428571428,101.48428571428572,101.70142857142858,101.23571428571428,101.16714285714286,102.30857142857144,102.0857142857143,101.61428571428571,101.53428571428572,101.35,101.75285714285714,101.83571428571427,100.93285714285716,101.91571428571427,101.53857142857144,101.46714285714286,101.07857142857142,101.44571428571427,101.25285714285714,101.18714285714285,100.8257142857143,101.56857142857145,101.32571428571428,100.75714285714288,101.26,100.59428571428568,100.88285714285716,100.62714285714286,99.98714285714286,100.59,100.43857142857142,100.4157142857143,100.9342857142857,100.61285714285714,101.10428571428572,100.81142857142856,100.53428571428572,100.7757142857143,100.76857142857143,100.68571428571428,100.69,100.89571428571428,100.4742857142857,100.85285714285716,100.84714285714288,101.03857142857144,100.76142857142855,101.04714285714284,101.0442857142857,100.93999999999998,101.42,101.85714285714286,101.63428571428572,101.8057142857143,101.14142857142858,101.57857142857142,101.5442857142857,101.6257142857143,101.38285714285716,101.14142857142856,100.83,100.9742857142857,100.73,101.67285714285715,101.13,101.09,101.07428571428571,101.42857142857143,101.74571428571429,100.85142857142857,100.82714285714285,100.9057142857143,100.90714285714286,101.08142857142856,101.18714285714285]},"patamares":[{"estagio":"Mobilização","por_100mil":10,"casos_semana":148.66783013379873},{"estagio":"Alerta","por_100mil":30,"casos_semana":447.06540347378046},{"estagio":"Epidemia","por_100mil":50,"casos_semana":745.4629768137622}],"situacao_atual":{"semana":"2026-09-27","casos":0.0,"estagio":"Normalidade"},"logo":null}</script>
 <noscript><p style="text-align:center">Esta página precisa de JavaScript para mostrar a previsão.</p></noscript>
 <script>
 (function () {
@@ -438,9 +439,6 @@ main { max-width: 1400px; margin: 0 auto; padding: 28px 40px 40px; }
   function dataEmMs(texto) {
     var partes = texto.split('-');
     return Date.UTC(Number(partes[0]), Number(partes[1]) - 1, Number(partes[2]));
-  }
-  function formatarDataIso(data) {
-    return data.getFullYear() + '-' + doisDigitos(data.getMonth() + 1) + '-' + doisDigitos(data.getDate());
   }
   function dataBrasileira(texto) {
     var partes = texto.split('-');
@@ -861,26 +859,220 @@ main { max-width: 1400px; margin: 0 auto; padding: 28px 40px 40px; }
     dica.style.left = esquerdaDaDica + 'px';
   }
 
-  /* ---------- gráfico dos patamares ---------- */
-  var ALTURA_PATAMARES = 300;
-  var MARGEM_PATAMARES = { esquerda: 44, direita: 56, topo: 12, base: 40 };
+  /* ---------- curvas suavizadas: interpolação cúbica monótona (Fritsch–Carlson) ---------- */
+  /* Passa exatamente pelos pontos, não ultrapassa os vizinhos e não muda nenhum valor. Trabalha em px (x) e casos (y). */
+  function inclinacoesMonotonas(xs, vs) {
+    var n = xs.length;
+    var delta = [];
+    var m = [];
+    var k;
+    for (k = 0; k < n - 1; k += 1) { delta.push((vs[k + 1] - vs[k]) / (xs[k + 1] - xs[k])); }
+    m.push(delta[0]);
+    for (k = 1; k < n - 1; k += 1) {
+      m.push(delta[k - 1] * delta[k] <= 0 ? 0 : (delta[k - 1] + delta[k]) / 2);
+    }
+    m.push(delta[n - 2]);
+    for (k = 0; k < n - 1; k += 1) {
+      if (delta[k] === 0) { m[k] = 0; m[k + 1] = 0; continue; }
+      var alfa = m[k] / delta[k];
+      var beta = m[k + 1] / delta[k];
+      var soma = alfa * alfa + beta * beta;
+      if (soma > 9) {
+        var tau = 3 / Math.sqrt(soma);
+        m[k] = tau * alfa * delta[k];
+        m[k + 1] = tau * beta * delta[k];
+      }
+    }
+    return m;
+  }
+
+  /* Trechos sem lacuna: cada um é suavizado separadamente. */
+  function trechosSemLacuna(xs, vs) {
+    var trechos = [];
+    var atual = null;
+    for (var i = 0; i < xs.length; i += 1) {
+      if (vs[i] === null) { atual = null; continue; }
+      if (atual === null) { atual = { xs: [], vs: [] }; trechos.push(atual); }
+      atual.xs.push(xs[i]);
+      atual.vs.push(vs[i]);
+    }
+    return trechos;
+  }
+  function f1(numero) { return numero.toFixed(3); }
+
+  /* Devolve a linha (com lacunas) e a área embaixo, ambas como caminhos de Bézier. */
+  function caminhosSuaves(xs, vs, posicaoY, yBase) {
+    var linha = '';
+    var area = '';
+    var trechos = trechosSemLacuna(xs, vs);
+    for (var t = 0; t < trechos.length; t += 1) {
+      var x = trechos[t].xs;
+      var v = trechos[t].vs;
+      var n = x.length;
+      if (n === 1) { linha += 'M' + f1(x[0]) + ' ' + f1(posicaoY(v[0])) + 'l0.01 0'; continue; }
+      var m = inclinacoesMonotonas(x, v);
+      var partes = '';
+      for (var k = 0; k < n - 1; k += 1) {
+        var passo = (x[k + 1] - x[k]) / 3;
+        partes += 'C' + f1(x[k] + passo) + ' ' + f1(posicaoY(v[k] + m[k] * passo)) + ' ' +
+          f1(x[k + 1] - passo) + ' ' + f1(posicaoY(v[k + 1] - m[k + 1] * passo)) + ' ' +
+          f1(x[k + 1]) + ' ' + f1(posicaoY(v[k + 1]));
+      }
+      linha += 'M' + f1(x[0]) + ' ' + f1(posicaoY(v[0])) + partes;
+      area += 'M' + f1(x[0]) + ' ' + f1(yBase) + 'L' + f1(x[0]) + ' ' + f1(posicaoY(v[0])) + partes +
+        'L' + f1(x[n - 1]) + ' ' + f1(yBase) + 'Z';
+    }
+    return { linha: linha, area: area };
+  }
+
+  /* ---------- gráfico dos patamares (centro da tela) ---------- */
+  var ALTURA_MINIMA_DOS_PATAMARES = 300;
+  var ALTURA_MAXIMA_DOS_PATAMARES = 600;
+  var ALTURA_RESERVADA_ABAIXO = 116; // nota, rodapé e margens abaixo da área do gráfico
+  var MARGEM_PATAMARES = { esquerda: 52, direita: 16, topo: 24, base: 40 };
   var FOLGA_ACIMA_DA_EPIDEMIA = 1.15;
+  var FOLGA_ACIMA_DAS_CURVAS = 1.05;
+  var DISTANCIA_MINIMA_ENTRE_MARCAS = 18;
+  var NOMES_DAS_FAIXAS = ['Normalidade', 'Mobilização', 'Alerta', 'Epidemia'];
+  var ANO_DO_EIXO = Number(previsao.data_de_referencia.slice(0, 4));
+  var curva = previsao.curva;
   var areaDosPatamares = document.getElementById('area-patamares');
   var dicaDosPatamares = elemento('div', 'dica');
   dicaDosPatamares.hidden = true;
   areaDosPatamares.appendChild(dicaDosPatamares);
   var escondeDicaDosPatamares = null;
 
-  function pontosDaPrevisao() {
-    var pontos = [];
-    for (var i = 0; i < previsao.horizontes.length; i += 1) {
-      var item = previsao.horizontes[i];
-      pontos.push({
-        h: item.h, rotulo: item.rotulo, ms: dataEmMs(item.semana_alvo), semana: item.semana_alvo,
-        casos: casosExibidos(item.por_modelo[modeloAtual].previsto), estagio: item.por_modelo[modeloAtual].estagio
+  function nomeDoModelo(chave) {
+    for (var i = 0; i < previsao.modelos.length; i += 1) {
+      if (previsao.modelos[i].chave === chave) { return previsao.modelos[i].nome; }
+    }
+    return chave;
+  }
+  function casosDaCurva(chave) {
+    var previstos = curva.por_modelo[chave].previsto;
+    var casos = [];
+    for (var i = 0; i < previstos.length; i += 1) { casos.push(casosExibidos(previstos[i])); }
+    return casos;
+  }
+
+  /* A semana de um ano qualquer é desenhada na mesma data de 2026 (29/02 vira 28/02). */
+  function dataNoAnoDoEixo(textoDaData) {
+    var partes = textoDaData.split('-');
+    var mes = Number(partes[1]) - 1;
+    var ms = Date.UTC(ANO_DO_EIXO, mes, Number(partes[2]));
+    if (new Date(ms).getUTCMonth() !== mes) { ms = Date.UTC(ANO_DO_EIXO, mes + 1, 0); }
+    return ms;
+  }
+
+  /* Casos semanais de cada ano (semanas cujo domingo cai no ano), na data do ano do eixo. */
+  var pontosPorAno = {};
+  (function montarPontosPorAno() {
+    for (var i = 0; i < series.datas.length; i += 1) {
+      var ano = Number(series.datas[i].slice(0, 4));
+      if (ano > ANO_DO_EIXO) { continue; }
+      if (!pontosPorAno[ano]) { pontosPorAno[ano] = []; }
+      pontosPorAno[ano].push({
+        ms: dataNoAnoDoEixo(series.datas[i]), data: series.datas[i], valor: ehNumero(series.casos[i]) ? series.casos[i] : null
       });
     }
+  })();
+
+  function pontosDaPrevisao() {
+    var casos = casosDaCurva(modeloAtual);
+    var prazos = {};
+    for (var h = 0; h < previsao.horizontes.length; h += 1) {
+      var item = previsao.horizontes[h];
+      prazos[item.h - 1] = { h: item.h, rotulo: item.rotulo, estagio: item.por_modelo[modeloAtual].estagio };
+    }
+    var pontos = [];
+    for (var i = 0; i < curva.semanas_alvo.length; i += 1) {
+      pontos.push({ ms: dataEmMs(curva.semanas_alvo[i]), data: curva.semanas_alvo[i], valor: casos[i], prazo: prazos[i] || null });
+    }
     return pontos;
+  }
+
+  /* Estado dos botões: 2026 ligado; a previsão liga no clique em "Gerar previsão"; anos anteriores desligados. */
+  var ligadas = { previsao: false };
+  ligadas[ANO_DO_EIXO] = true;
+  var botoesDosPatamares = [];
+
+  function definicaoDasCurvas() {
+    var lista = [{ chave: 'previsao', rotulo: 'Previsão', cor: 'var(--serie-casos)', tracejada: true }];
+    for (var ano = ANO_DO_EIXO; ano >= PRIMEIRO_ANO; ano -= 1) {
+      var posicao = ANO_DO_EIXO - ano;
+      lista.push({
+        chave: String(ano), rotulo: String(ano), tracejada: false,
+        cor: posicao === 0 ? 'var(--tinta)' : 'var(--ano-' + Math.min(posicao, 8) + ')'
+      });
+    }
+    return lista;
+  }
+  var CURVAS = definicaoDasCurvas();
+
+  function marcarChipsDosPatamares() {
+    for (var i = 0; i < botoesDosPatamares.length; i += 1) {
+      botoesDosPatamares[i].botao.setAttribute('aria-pressed', ligadas[botoesDosPatamares[i].chave] ? 'true' : 'false');
+    }
+  }
+  function montarChipsDosPatamares() {
+    var recipiente = document.getElementById('chips-patamares');
+    CURVAS.forEach(function (curvaDefinida) {
+      var botao = elemento('button', 'chip chip-serie');
+      botao.type = 'button';
+      botao.style.setProperty('--cor', curvaDefinida.cor);
+      botao.appendChild(elemento('span', 'amostra' + (curvaDefinida.tracejada ? ' tracejada' : '')));
+      botao.appendChild(document.createTextNode(curvaDefinida.rotulo));
+      botao.addEventListener('click', function () {
+        if (curvaDefinida.chave === 'previsao' && !previsaoGerada) { gerarPrevisao(); return; }
+        ligadas[curvaDefinida.chave] = !ligadas[curvaDefinida.chave];
+        marcarChipsDosPatamares();
+        desenharPatamares();
+      });
+      recipiente.appendChild(botao);
+      botoesDosPatamares.push({ chave: curvaDefinida.chave, botao: botao });
+    });
+    marcarChipsDosPatamares();
+  }
+
+  /* Marcas do eixo y: os cortes do plano e, entre eles, poucos números redondos (sem encostar nos cortes). */
+  function marcasDoEixoY(teto, cortes, pixelsPorCaso) {
+    var passos = [100, 200, 250, 500, 1000, 2000, 2500, 5000, 10000];
+    var passo = passos[passos.length - 1];
+    for (var i = 0; i < passos.length; i += 1) {
+      if (teto / passos[i] <= 3.01) { passo = passos[i]; break; }
+    }
+    var marcas = [{ valor: 0, corte: false }];
+    for (var c = 0; c < cortes.length; c += 1) { marcas.push({ valor: cortes[c], corte: true }); }
+    for (var valor = passo; valor <= teto; valor += passo) {
+      var encosta = false;
+      for (var j = 0; j < cortes.length; j += 1) {
+        if (Math.abs(cortes[j] - valor) * pixelsPorCaso < DISTANCIA_MINIMA_ENTRE_MARCAS) { encosta = true; }
+      }
+      if (!encosta) { marcas.push({ valor: valor, corte: false }); }
+    }
+    return marcas;
+  }
+
+  function alturaDoGraficoDosPatamares(largura) {
+    if (largura < 700) { return 340; }
+    var topoDaArea = areaDosPatamares.getBoundingClientRect().top + window.scrollY;
+    var livre = window.innerHeight - topoDaArea - ALTURA_RESERVADA_ABAIXO;
+    return Math.round(Math.min(ALTURA_MAXIMA_DOS_PATAMARES, Math.max(ALTURA_MINIMA_DOS_PATAMARES, livre)));
+  }
+
+  /* Curvas ligadas, na ordem de desenho (anos antigos primeiro, previsão por cima). */
+  function curvasLigadas() {
+    var lista = [];
+    for (var i = CURVAS.length - 1; i >= 0; i -= 1) {
+      var definida = CURVAS[i];
+      if (!ligadas[definida.chave]) { continue; }
+      if (definida.chave === 'previsao') {
+        if (previsaoGerada) { lista.push({ definida: definida, pontos: pontosDaPrevisao() }); }
+      } else {
+        lista.push({ definida: definida, pontos: pontosPorAno[Number(definida.chave)] || [] });
+      }
+    }
+    return lista;
   }
 
   function desenharPatamares() {
@@ -888,37 +1080,52 @@ main { max-width: 1400px; margin: 0 auto; padding: 28px 40px 40px; }
     if (largura < 200) { return; }
     var velho = areaDosPatamares.querySelector('svg');
     if (velho) { areaDosPatamares.removeChild(velho); }
-    // Sem o gráfico antigo, a área ocupa o que sobra do cartão: o gráfico novo preenche essa altura (mínimo: ALTURA_PATAMARES).
-    var alturaDoGrafico = Math.max(ALTURA_PATAMARES, Math.floor(areaDosPatamares.clientHeight));
+    var alturaDoGrafico = alturaDoGraficoDosPatamares(largura);
     var m = MARGEM_PATAMARES;
     var esquerda = m.esquerda;
     var direita = largura - m.direita;
     var topo = m.topo;
     var base = alturaDoGrafico - m.base;
-    var anoCorrente = Number(previsao.data_de_referencia.slice(0, 4));
-    var ultimaAlvo = previsao.horizontes[previsao.horizontes.length - 1].semana_alvo;
-    var x0 = Date.UTC(anoCorrente, 0, 1);
-    var x1 = dataEmMs(ultimaAlvo) + 6 * UM_DIA;
+    var x0 = Date.UTC(ANO_DO_EIXO, 0, 1);
+    var x1 = Date.UTC(ANO_DO_EIXO + 1, 0, 31);
     function posicaoX(ms) { return esquerda + (ms - x0) / (x1 - x0) * (direita - esquerda); }
 
     var cortes = [];
     for (var c = 0; c < patamares.length; c += 1) { cortes.push(patamares[c].casos_semana); }
-    var pontos = previsaoGerada ? pontosDaPrevisao() : [];
-    var teto = cortes[cortes.length - 1] * FOLGA_ACIMA_DA_EPIDEMIA;
-    for (var p = 0; p < pontos.length; p += 1) {
-      if (pontos[p].casos * 1.08 > teto) { teto = pontos[p].casos * 1.08; }
+    var ligadasAgora = curvasLigadas();
+    var maiorDasCurvas = 0;
+    var a;
+    var p;
+    for (a = 0; a < ligadasAgora.length; a += 1) {
+      for (p = 0; p < ligadasAgora[a].pontos.length; p += 1) {
+        if (ehNumero(ligadasAgora[a].pontos[p].valor) && ligadasAgora[a].pontos[p].valor > maiorDasCurvas) {
+          maiorDasCurvas = ligadasAgora[a].pontos[p].valor;
+        }
+      }
     }
+    var teto = Math.max(cortes[cortes.length - 1] * FOLGA_ACIMA_DA_EPIDEMIA, maiorDasCurvas * FOLGA_ACIMA_DAS_CURVAS);
     function posicaoY(valor) { return base - valor / teto * (base - topo); }
 
-    var resumo = 'Casos confirmados por semana em ' + anoCorrente + ' contra as faixas do plano municipal: ' +
+    var resumo = 'Casos confirmados por semana contra as faixas do plano municipal: ' +
       'Normalidade até ' + formatoInteiro.format(cortes[0]) + ', Mobilização até ' + formatoInteiro.format(cortes[1]) +
-      ', Alerta até ' + formatoInteiro.format(cortes[2]) + ', Epidemia acima.';
-    if (previsaoGerada) {
-      resumo += ' Previsão: ';
-      for (var r = 0; r < pontos.length; r += 1) {
-        resumo += (r > 0 ? '; ' : '') + pontos[r].rotulo + ', ' + textoDeCasos(pontos[r].casos) + ' (' + pontos[r].estagio + ')';
+      ', Alerta até ' + formatoInteiro.format(cortes[2]) + ', Epidemia acima. De 1º de janeiro de ' + ANO_DO_EIXO +
+      ' a 31 de janeiro de ' + (ANO_DO_EIXO + 1) + '. Curvas ligadas: ';
+    var nomesLigados = [];
+    for (a = 0; a < ligadasAgora.length; a += 1) { nomesLigados.push(ligadasAgora[a].definida.rotulo); }
+    resumo += (nomesLigados.length ? nomesLigados.reverse().join(', ') : 'nenhuma') + '.';
+    for (a = 0; a < ligadasAgora.length; a += 1) {
+      var curvaDoResumo = ligadasAgora[a];
+      var maiorDaCurva = maiorValor(curvaDoResumo.pontos.map(function (ponto) { return ponto.valor; }));
+      if (curvaDoResumo.definida.chave === 'previsao') {
+        resumo += ' Previsão (' + nomeDoModelo(modeloAtual) + '): ';
+        var prazosDoResumo = curvaDoResumo.pontos.filter(function (ponto) { return ponto.prazo; });
+        resumo += prazosDoResumo.map(function (ponto) {
+          return ponto.prazo.rotulo + ', ' + textoDeCasos(ponto.valor) + ' (' + ponto.prazo.estagio + ')';
+        }).join('; ') + '.';
+      } else if (maiorDaCurva.valor !== null) {
+        resumo += ' ' + curvaDoResumo.definida.rotulo + ': máximo de ' + textoDeCasos(maiorDaCurva.valor) + ', na semana de ' +
+          dataBrasileira(curvaDoResumo.pontos[maiorDaCurva.posicao].data) + '.';
       }
-      resumo += '.';
     }
     var svg = svgEl('svg', {
       width: largura, height: alturaDoGrafico, viewBox: '0 0 ' + largura + ' ' + alturaDoGrafico,
@@ -926,7 +1133,7 @@ main { max-width: 1400px; margin: 0 auto; padding: 28px 40px 40px; }
     });
     areaDosPatamares.insertBefore(svg, areaDosPatamares.firstChild);
 
-    /* faixas de fundo: Normalidade (e1) até Epidemia (e4) */
+    /* faixas de fundo, até o topo: Normalidade (e1) a Epidemia (e4) */
     var limitesInferiores = [0].concat(cortes);
     var limitesSuperiores = cortes.concat([teto]);
     for (var f = 0; f < 4; f += 1) {
@@ -938,329 +1145,150 @@ main { max-width: 1400px; margin: 0 auto; padding: 28px 40px 40px; }
         style: 'fill:var(--' + classe + '-cor);fill-opacity:.2'
       }, svg);
       svgEl('text', {
-        x: esquerda + 8, y: yTopo + 16, 'class': 'g-faixa-texto', style: 'fill:var(--' + classe + '-tinta)'
-      }, svg).textContent = ['Normalidade', 'Mobilização', 'Alerta', 'Epidemia'][f];
+        x: esquerda + 8, y: yTopo + Math.min(15, Math.max(10, yBase - yTopo - 4)), 'class': 'g-faixa-texto',
+        style: 'fill:var(--' + classe + '-tinta)'
+      }, svg).textContent = NOMES_DAS_FAIXAS[f];
       if (f > 0) {
         svgEl('line', {
           x1: esquerda, x2: direita, y1: yBase, y2: yBase, style: 'stroke:var(--' + classe + '-cor);stroke-width:1;opacity:.6'
         }, svg);
       }
     }
-    /* marcas do eixo y: zero e os três cortes do plano */
-    var marcasY = [0].concat(cortes);
+    /* eixo y: zero, os três cortes e números redondos */
+    var marcasY = marcasDoEixoY(teto, cortes, (base - topo) / teto);
     for (var y = 0; y < marcasY.length; y += 1) {
-      svgEl('text', { x: esquerda - 6, y: posicaoY(marcasY[y]) + 4, 'text-anchor': 'end', 'class': 'g-texto' }, svg)
-        .textContent = formatoInteiro.format(marcasY[y]);
-    }
-    svgEl('line', { x1: esquerda, x2: direita, y1: base, y2: base, 'class': 'g-base' }, svg);
-    desenharEixoDeMeses(svg, x0, x1, esquerda, direita, base, true);
-
-    /* casos confirmados do ano corrente */
-    var datasDoAno = [];
-    var xs = [];
-    var ys = [];
-    var valores = [];
-    var indice;
-    for (indice = 0; indice < series.datas.length; indice += 1) {
-      if (Number(series.datas[indice].slice(0, 4)) !== anoCorrente) { continue; }
-      datasDoAno.push(series.datas[indice]);
-      valores.push(series.casos[indice]);
-      xs.push(posicaoX(dataEmMs(series.datas[indice])));
-      ys.push(ehNumero(series.casos[indice]) ? posicaoY(series.casos[indice]) : null);
-    }
-    svgEl('path', { d: caminhoComLacunas(xs, ys), 'class': 'g-linha', style: 'stroke:var(--serie-casos)' }, svg);
-
-    /* hoje: a semana de origem */
-    var xHoje = posicaoX(dataEmMs(previsao.origem));
-    svgEl('line', { x1: xHoje, x2: xHoje, y1: topo, y2: base, 'class': 'g-hoje' }, svg);
-    svgEl('text', { x: xHoje - 5, y: topo + 11, 'text-anchor': 'end', 'class': 'g-hoje-texto' }, svg).textContent = 'últimos dados';
-
-    /* previsão (depois do clique) */
-    var xsPrevisao = [];
-    var ysPrevisao = [];
-    for (var k = 0; k < pontos.length; k += 1) {
-      xsPrevisao.push(posicaoX(pontos[k].ms));
-      ysPrevisao.push(posicaoY(pontos[k].casos));
-    }
-    if (pontos.length > 1) {
-      svgEl('path', { d: caminhoComLacunas(xsPrevisao, ysPrevisao), 'class': 'g-previsao' }, svg);
-    }
-    for (var q = 0; q < pontos.length; q += 1) {
-      svgEl('circle', { cx: xsPrevisao[q], cy: ysPrevisao[q], r: 5, 'class': 'g-ponto', style: 'fill:var(--serie-casos)' }, svg);
-      var degrau = largura < 700 ? q * 13 : (q % 2) * 14; // tela estreita: rótulos em escada, para não se sobreporem
-      var yRotulo = Math.max(topo + 10, ysPrevisao[q] - 10 - degrau);
-      svgEl('text', { x: xsPrevisao[q], y: yRotulo, 'text-anchor': xsPrevisao[q] + 28 > largura ? 'end' : 'middle', 'class': 'g-rotulo' }, svg)
-        .textContent = ROTULO_CURTO[pontos[q].h] || pontos[q].rotulo;
-    }
-
-    /* dica: ponto da previsão mais próximo (até 16 px) ou a semana observada */
-    var cruz = svgEl('line', { y1: topo, y2: base, 'class': 'g-cruz', style: 'display:none' }, svg);
-    var cobertura = svgEl('rect', {
-      x: esquerda, y: topo, width: direita - esquerda, height: base - topo, fill: 'transparent', style: 'touch-action:pan-y'
-    }, svg);
-    var ultimaObservada = -1;
-    for (indice = 0; indice < valores.length; indice += 1) { if (ehNumero(valores[indice])) { ultimaObservada = indice; } }
-
-    function esconder() {
-      dicaDosPatamares.hidden = true;
-      cruz.style.display = 'none';
-    }
-    escondeDicaDosPatamares = esconder;
-    function mostrar(evento) {
-      var x = evento.clientX - svg.getBoundingClientRect().left;
-      var maisProximo = -1;
-      var menorDistancia = 16;
-      for (var i = 0; i < xsPrevisao.length; i += 1) {
-        var distancia = Math.abs(xsPrevisao[i] - x);
-        if (distancia <= menorDistancia) { menorDistancia = distancia; maisProximo = i; }
+      var yMarca = posicaoY(marcasY[y].valor);
+      if (!marcasY[y].corte && marcasY[y].valor > 0) {
+        svgEl('line', { x1: esquerda, x2: direita, y1: yMarca, y2: yMarca, 'class': 'g-grade' }, svg);
       }
-      dicaDosPatamares.textContent = '';
-      if (maisProximo >= 0) {
-        var alvo = pontos[maisProximo];
-        cruz.setAttribute('x1', xsPrevisao[maisProximo]);
-        cruz.setAttribute('x2', xsPrevisao[maisProximo]);
-        dicaDosPatamares.appendChild(elemento('div', 'd', 'Previsão, em ' + alvo.rotulo + ' · semana de ' + dataBrasileira(alvo.semana)));
-        dicaDosPatamares.appendChild(elemento('div', 'v', textoDeCasos(alvo.casos) + ' · ' + alvo.estagio));
-        cruz.style.display = '';
-        posicionarDica(dicaDosPatamares, svg, xsPrevisao[maisProximo]);
-        return;
-      }
-      if (ultimaObservada < 0) { esconder(); return; }
-      var ms = x0 + (x - esquerda) / (direita - esquerda) * (x1 - x0);
-      var primeiro = dataEmMs(datasDoAno[0]);
-      var posicao = Math.round((ms - primeiro) / UMA_SEMANA);
-      if (posicao < 0 || posicao > ultimaObservada || !ehNumero(valores[posicao])) { esconder(); return; }
-      cruz.setAttribute('x1', xs[posicao]);
-      cruz.setAttribute('x2', xs[posicao]);
-      cruz.style.display = '';
-      dicaDosPatamares.appendChild(elemento('div', 'd', 'Semana de ' + dataBrasileira(datasDoAno[posicao])));
-      dicaDosPatamares.appendChild(elemento('div', 'v', textoDeCasos(valores[posicao])));
-      posicionarDica(dicaDosPatamares, svg, xs[posicao]);
-    }
-    cobertura.addEventListener('pointermove', mostrar);
-    cobertura.addEventListener('pointerdown', mostrar);
-    cobertura.addEventListener('pointerleave', function (evento) { if (evento.pointerType === 'mouse') { esconder(); } });
-    cobertura.addEventListener('pointercancel', esconder);
-  }
-
-  /* ---------- gráfico "Previsão × ano anterior" (12 semanas) ---------- */
-  var ALTURA_CURVA = 300;
-  var MARGEM_CURVA = { esquerda: 40, direita: 14, topo: 24, base: 40 };
-  var TOPO_MINIMO_DA_CURVA = 5;
-  var CHAVE_DA_REGUA = 'regua_sazonal';
-  var CHAVE_DO_COMPOSTO = 'composto';
-  var areaDaCurva = document.getElementById('area-curva');
-  var dicaDaCurva = elemento('div', 'dica');
-  dicaDaCurva.hidden = true;
-  areaDaCurva.appendChild(dicaDaCurva);
-  var escondeDicaDaCurva = null;
-  var curva = previsao.curva;
-
-  function nomeDoModelo(chave) {
-    for (var i = 0; i < previsao.modelos.length; i += 1) {
-      if (previsao.modelos[i].chave === chave) { return previsao.modelos[i].nome; }
-    }
-    return chave;
-  }
-  /* A curva de comparação é sempre "Repetir o ano anterior"; se ele próprio estiver escolhido, o Modelo do projeto. */
-  function chaveDaComparacao() { return modeloAtual === CHAVE_DA_REGUA ? CHAVE_DO_COMPOSTO : CHAVE_DA_REGUA; }
-  function nomeCurtoNaLinha(chave) { return chave === CHAVE_DA_REGUA ? 'ano anterior' : nomeDoModelo(chave); }
-
-  function casosDaCurva(chave) {
-    var previstos = curva.por_modelo[chave].previsto;
-    var casos = [];
-    for (var i = 0; i < previstos.length; i += 1) { casos.push(casosExibidos(previstos[i])); }
-    return casos;
-  }
-
-  /* Escala em casos inteiros: do zero a um topo de pelo menos 5, com no máximo 5 intervalos. */
-  function montarEscalaDaCurva(maximo) {
-    var alvo = Math.max(TOPO_MINIMO_DA_CURVA, maximo);
-    var passosBase = [1, 2, 5];
-    var potencia = 1;
-    for (var rodada = 0; rodada < 8; rodada += 1) {
-      for (var i = 0; i < passosBase.length; i += 1) {
-        var passo = passosBase[i] * potencia;
-        var intervalos = Math.ceil(alvo / passo - 1e-9);
-        if (intervalos <= 5) {
-          var marcas = [];
-          for (var k = 0; k <= intervalos; k += 1) { marcas.push(k * passo); }
-          return { marcas: marcas, teto: intervalos * passo };
-        }
-      }
-      potencia *= 10;
-    }
-    return { marcas: [0, alvo], teto: alvo };
-  }
-
-  function montarLegendaDaCurva() {
-    var legenda = document.getElementById('legenda-curva');
-    legenda.textContent = '';
-    var itens = [
-      { chave: modeloAtual, classe: 'escolhida' },
-      { chave: chaveDaComparacao(), classe: 'comparacao' }
-    ];
-    for (var i = 0; i < itens.length; i += 1) {
-      var item = elemento('span', 'legenda-item');
-      item.appendChild(elemento('span', 'legenda-traco ' + itens[i].classe));
-      item.appendChild(document.createTextNode(nomeDoModelo(itens[i].chave)));
-      legenda.appendChild(item);
-    }
-    legenda.style.visibility = previsaoGerada ? 'visible' : 'hidden';
-  }
-
-  function montarNotaDaCurva() {
-    var nota = document.getElementById('nota-curva');
-    if (!previsaoGerada) { nota.textContent = ''; return; }
-    var primeiro = previsao.horizontes[0];
-    var ultimo = previsao.horizontes[previsao.horizontes.length - 1];
-    var chaves = [modeloAtual, chaveDaComparacao()];
-    var partes = [];
-    for (var i = 0; i < chaves.length; i += 1) {
-      var erros = curva.por_modelo[chaves[i]].mae_avaliacao;
-      partes.push(nomeCurtoNaLinha(chaves[i]) + ' ' + formatoInteiro.format(Math.round(erros[0])) + ' → ' +
-        formatoInteiro.format(Math.round(erros[erros.length - 1])));
-    }
-    nota.textContent = 'Erro médio na avaliação, de ' + primeiro.rotulo + ' a ' + ultimo.rotulo + ': ' + partes.join('; ') +
-      ' casos por semana.';
-  }
-
-  function desenharCurva() {
-    montarLegendaDaCurva();
-    montarNotaDaCurva();
-    var largura = Math.floor(areaDaCurva.clientWidth);
-    if (largura < 200) { return; }
-    var velho = areaDaCurva.querySelector('svg');
-    if (velho) { areaDaCurva.removeChild(velho); }
-    // Sem o gráfico antigo, a área ocupa o que sobra do cartão: o gráfico novo preenche essa altura (mínimo: ALTURA_CURVA).
-    var alturaDoGrafico = Math.max(ALTURA_CURVA, Math.floor(areaDaCurva.clientHeight));
-    var m = MARGEM_CURVA;
-    var esquerda = m.esquerda;
-    var direita = largura - m.direita;
-    var topo = m.topo;
-    var base = alturaDoGrafico - m.base;
-    var origem = lerData(previsao.origem);
-    var ultimaAlvo = lerData(curva.semanas_alvo[curva.semanas_alvo.length - 1]);
-    var x0 = Date.UTC(origem.getFullYear(), origem.getMonth(), 1);
-    var x1 = Date.UTC(ultimaAlvo.getFullYear(), ultimaAlvo.getMonth() + 1, 0);
-    function posicaoX(ms) { return esquerda + (ms - x0) / (x1 - x0) * (direita - esquerda); }
-
-    var chaveEscolhida = modeloAtual;
-    var chaveComparada = chaveDaComparacao();
-    var casosEscolhido = previsaoGerada ? casosDaCurva(chaveEscolhida) : [];
-    var casosComparado = previsaoGerada ? casosDaCurva(chaveComparada) : [];
-    var maximo = 0;
-    for (var v = 0; v < casosEscolhido.length; v += 1) {
-      maximo = Math.max(maximo, casosEscolhido[v], casosComparado[v]);
-    }
-    var escala = montarEscalaDaCurva(maximo);
-    function posicaoY(valor) { return base - valor / escala.teto * (base - topo); }
-
-    var resumo = 'Casos confirmados por semana, de ' + dataBrasileira(curva.semanas_alvo[0]) + ' a ' +
-      dataBrasileira(curva.semanas_alvo[curva.semanas_alvo.length - 1]) + '. Últimos dados em ' +
-      dataBrasileira(formatarDataIso(somarDias(origem, 6))) + '.';
-    if (previsaoGerada) {
-      resumo += ' ' + nomeDoModelo(chaveEscolhida) + ': de ' + textoDeCasos(casosEscolhido[0]) + ' a ' +
-        textoDeCasos(casosEscolhido[casosEscolhido.length - 1]) + ', máximo de ' + textoDeCasos(maiorValor(casosEscolhido).valor) + '. ' +
-        nomeDoModelo(chaveComparada) + ': de ' + textoDeCasos(casosComparado[0]) + ' a ' +
-        textoDeCasos(casosComparado[casosComparado.length - 1]) + ', máximo de ' + textoDeCasos(maiorValor(casosComparado).valor) + '.';
-    } else {
-      resumo += ' Gráfico vazio até o clique em Gerar previsão.';
-    }
-    var svg = svgEl('svg', {
-      width: largura, height: alturaDoGrafico, viewBox: '0 0 ' + largura + ' ' + alturaDoGrafico,
-      role: 'img', 'aria-label': resumo
-    });
-    areaDaCurva.insertBefore(svg, areaDaCurva.firstChild);
-
-    svgEl('text', { x: 0, y: 11, 'class': 'g-texto' }, svg).textContent = 'casos por semana';
-    for (var t = 0; t < escala.marcas.length; t += 1) {
-      var yMarca = posicaoY(escala.marcas[t]);
-      svgEl('line', { x1: esquerda, x2: direita, y1: yMarca, y2: yMarca, 'class': 'g-grade' }, svg);
       svgEl('text', { x: esquerda - 6, y: yMarca + 4, 'text-anchor': 'end', 'class': 'g-texto' }, svg)
-        .textContent = formatoInteiro.format(escala.marcas[t]);
+        .textContent = formatoInteiro.format(marcasY[y].valor);
     }
+    svgEl('text', { x: 0, y: 12, 'class': 'g-texto' }, svg).textContent = 'casos por semana';
     svgEl('line', { x1: esquerda, x2: direita, y1: base, y2: base, 'class': 'g-base' }, svg);
     desenharEixoDeMeses(svg, x0, x1, esquerda, direita, base, true);
 
-    var xUltimosDados = posicaoX(Date.UTC(origem.getFullYear(), origem.getMonth(), origem.getDate() + 6));
+    /* últimos dados: o fim da semana de origem */
+    var xUltimosDados = posicaoX(dataEmMs(previsao.origem) + 6 * UM_DIA);
     svgEl('line', { x1: xUltimosDados, x2: xUltimosDados, y1: topo, y2: base, 'class': 'g-hoje' }, svg);
     svgEl('text', { x: xUltimosDados - 5, y: topo + 11, 'text-anchor': 'end', 'class': 'g-hoje-texto' }, svg)
       .textContent = 'últimos dados';
 
-    if (!previsaoGerada) {
-      svgEl('text', { x: (esquerda + direita) / 2, y: (topo + base) / 2, 'text-anchor': 'middle', 'class': 'g-texto g-texto-vazio' }, svg)
-        .textContent = 'Clique em Gerar previsão';
-      escondeDicaDaCurva = null;
-      return;
+    /* as curvas */
+    var posicoesDosPontos = [];
+    for (a = 0; a < ligadasAgora.length; a += 1) {
+      var item = ligadasAgora[a];
+      var ehPrevisao = item.definida.chave === 'previsao';
+      var ehAnoCorrente = item.definida.chave === String(ANO_DO_EIXO);
+      var xs = [];
+      var vs = [];
+      for (p = 0; p < item.pontos.length; p += 1) {
+        xs.push(posicaoX(item.pontos[p].ms));
+        vs.push(item.pontos[p].valor);
+      }
+      posicoesDosPontos.push(xs);
+      var caminhos = caminhosSuaves(xs, vs, posicaoY, base);
+      if (ehAnoCorrente && caminhos.area) {
+        svgEl('path', { d: caminhos.area, style: 'fill:' + item.definida.cor + ';fill-opacity:.12;stroke:none' }, svg);
+      }
+      svgEl('path', {
+        d: caminhos.linha, 'class': 'g-linha' + (ehPrevisao ? ' g-previsao-linha' : ''),
+        style: 'stroke:' + item.definida.cor + ';stroke-width:' + (ehPrevisao ? 2.75 : ehAnoCorrente ? 2.5 : 1.5)
+      }, svg);
+    }
+    for (a = 0; a < ligadasAgora.length; a += 1) {
+      if (ligadasAgora[a].definida.chave !== 'previsao') { continue; }
+      var pontosDaCurva = ligadasAgora[a].pontos;
+      var xsDaPrevisao = posicoesDosPontos[a];
+      for (p = 0; p < pontosDaCurva.length; p += 1) {
+        var yDoPonto = posicaoY(pontosDaCurva[p].valor);
+        if (!pontosDaCurva[p].prazo) {
+          svgEl('circle', { cx: xsDaPrevisao[p], cy: yDoPonto, r: 2.5, style: 'fill:var(--serie-casos)' }, svg);
+          continue;
+        }
+        svgEl('circle', { cx: xsDaPrevisao[p], cy: yDoPonto, r: 6, 'class': 'g-ponto', style: 'fill:var(--serie-casos)' }, svg);
+        var degrau = largura < 700 ? (pontosDaPrevisaoDosPrazos(pontosDaCurva, p)) * 13 : (pontosDaPrevisaoDosPrazos(pontosDaCurva, p) % 2) * 14;
+        var yRotulo = Math.max(topo + 10, yDoPonto - 11 - degrau);
+        svgEl('text', {
+          x: xsDaPrevisao[p], y: yRotulo, 'text-anchor': xsDaPrevisao[p] + 28 > largura ? 'end' : 'middle',
+          'class': 'g-rotulo g-rotulo-previsao'
+        }, svg).textContent = ROTULO_CURTO[pontosDaCurva[p].prazo.h] || pontosDaCurva[p].prazo.rotulo;
+      }
     }
 
-    var datasEmMs = [];
-    var xs = [];
-    var ysEscolhido = [];
-    var ysComparado = [];
-    for (var i = 0; i < curva.semanas_alvo.length; i += 1) {
-      datasEmMs.push(dataEmMs(curva.semanas_alvo[i]));
-      xs.push(posicaoX(datasEmMs[i]));
-      ysEscolhido.push(posicaoY(casosEscolhido[i]));
-      ysComparado.push(posicaoY(casosComparado[i]));
-    }
-    svgEl('path', { d: caminhoComLacunas(xs, ysComparado), 'class': 'g-linha g-curva-comparada' }, svg);
-    svgEl('path', { d: caminhoComLacunas(xs, ysEscolhido), 'class': 'g-linha g-curva-escolhida' }, svg);
-    for (var s = 0; s < xs.length; s += 1) {
-      svgEl('circle', { cx: xs[s], cy: ysComparado[s], r: 2.5, 'class': 'g-curva-ponto-comparado' }, svg);
-      svgEl('circle', { cx: xs[s], cy: ysEscolhido[s], r: 2.5, 'class': 'g-curva-ponto-escolhido' }, svg);
-    }
-    for (var h = 0; h < previsao.horizontes.length; h += 1) {
-      var posicao = previsao.horizontes[h].h - 1;
-      svgEl('circle', { cx: xs[posicao], cy: ysEscolhido[posicao], r: 5.5, 'class': 'g-ponto g-curva-ponto-escolhido' }, svg);
-      var yRotulo = ysEscolhido[posicao] - 11;
-      if (yRotulo < topo + 8) { yRotulo = ysEscolhido[posicao] + 19; }
-      svgEl('text', {
-        x: xs[posicao], y: yRotulo, 'text-anchor': xs[posicao] + 28 > largura ? 'end' : 'middle', 'class': 'g-rotulo g-rotulo-curva'
-      }, svg).textContent = ROTULO_CURTO[previsao.horizontes[h].h] || previsao.horizontes[h].rotulo;
-    }
-
+    /* dica: a data da semana e o valor semanal de cada curva ligada, naquela data do ano */
+    var primeiroDomingo = dataEmMs(series.datas[series.datas.map(function (d) { return Number(d.slice(0, 4)); }).indexOf(ANO_DO_EIXO)]);
     var cruz = svgEl('line', { y1: topo, y2: base, 'class': 'g-cruz', style: 'display:none' }, svg);
+    var marcadores = svgEl('g', {}, svg);
     var cobertura = svgEl('rect', {
       x: esquerda, y: topo, width: direita - esquerda, height: base - topo, fill: 'transparent', style: 'touch-action:pan-y'
     }, svg);
     function esconder() {
-      dicaDaCurva.hidden = true;
+      dicaDosPatamares.hidden = true;
       cruz.style.display = 'none';
+      marcadores.textContent = '';
     }
-    escondeDicaDaCurva = esconder;
-    function acrescentarLinhaDaCurva(chave, classeDoTraco, indice) {
-      var linhaDoValor = elemento('div', 'v');
-      linhaDoValor.appendChild(elemento('span', 'legenda-traco ' + classeDoTraco));
-      var casos = casosDaCurva(chave)[indice];
-      linhaDoValor.appendChild(document.createTextNode(nomeDoModelo(chave) + ': ' + textoDeCasos(casos)));
-      dicaDaCurva.appendChild(linhaDoValor);
-      var erro = curva.por_modelo[chave].mae_avaliacao[indice];
-      dicaDaCurva.appendChild(elemento('div', 'd', 'erro médio ' + formatoInteiro.format(Math.round(erro)) + ' casos/sem.'));
+    escondeDicaDosPatamares = esconder;
+    function maisProximoDe(pontos, ms) {
+      var escolhido = -1;
+      var menor = 3.5 * UM_DIA + 1;
+      for (var i = 0; i < pontos.length; i += 1) {
+        var distancia = Math.abs(pontos[i].ms - ms);
+        if (distancia < menor) { menor = distancia; escolhido = i; }
+      }
+      return escolhido;
     }
     function mostrar(evento) {
+      if (ligadasAgora.length === 0) { esconder(); return; }
       var x = evento.clientX - svg.getBoundingClientRect().left;
-      var maisProximo = -1;
-      var menorDistancia = Math.max(16, (direita - esquerda) * (UMA_SEMANA / 2) / (x1 - x0));
-      for (var j = 0; j < xs.length; j += 1) {
-        var distancia = Math.abs(xs[j] - x);
-        if (distancia <= menorDistancia) { menorDistancia = distancia; maisProximo = j; }
+      var ms = x0 + (x - esquerda) / (direita - esquerda) * (x1 - x0);
+      var semana = Math.max(0, Math.round((ms - primeiroDomingo) / UMA_SEMANA));
+      var msDaSemana = primeiroDomingo + semana * UMA_SEMANA;
+      var xDaSemana = posicaoX(msDaSemana);
+      dicaDosPatamares.textContent = '';
+      marcadores.textContent = '';
+      var linhas = 0;
+      dicaDosPatamares.appendChild(elemento('div', 'd', 'Semana de ' + dataCurta(new Date(msDaSemana + 12 * 3600000))));
+      for (var i = ligadasAgora.length - 1; i >= 0; i -= 1) {
+        var definida = ligadasAgora[i].definida;
+        var pontos = ligadasAgora[i].pontos;
+        var indice = maisProximoDe(pontos, msDaSemana);
+        if (indice < 0) { continue; }
+        var ponto = pontos[indice];
+        var linha = elemento('div', 'v');
+        var amostra = elemento('span', 'amostra' + (definida.tracejada ? ' tracejada' : ''));
+        amostra.style.setProperty('--cor', definida.cor);
+        linha.appendChild(amostra);
+        var textoDaLinha = definida.rotulo + ' (' + dataCurta(lerData(ponto.data)) + '): ';
+        if (ehNumero(ponto.valor)) {
+          textoDaLinha += textoDeCasos(ponto.valor);
+          if (ponto.prazo) { textoDaLinha += ' · ' + ponto.prazo.estagio; }
+          svgEl('circle', {
+            cx: posicoesDosPontos[i][indice], cy: posicaoY(ponto.valor), r: 4, 'class': 'g-ponto', style: 'fill:' + definida.cor
+          }, marcadores);
+        } else {
+          textoDaLinha += 'sem dado';
+        }
+        linha.appendChild(document.createTextNode(textoDaLinha));
+        dicaDosPatamares.appendChild(linha);
+        linhas += 1;
       }
-      if (maisProximo < 0) { esconder(); return; }
-      cruz.setAttribute('x1', xs[maisProximo]);
-      cruz.setAttribute('x2', xs[maisProximo]);
+      if (linhas === 0) { esconder(); return; }
+      cruz.setAttribute('x1', xDaSemana);
+      cruz.setAttribute('x2', xDaSemana);
       cruz.style.display = '';
-      dicaDaCurva.textContent = '';
-      dicaDaCurva.appendChild(elemento('div', 'd', semanaPorExtenso(curva.semanas_alvo[maisProximo], origem.getFullYear())));
-      acrescentarLinhaDaCurva(chaveEscolhida, 'escolhida', maisProximo);
-      acrescentarLinhaDaCurva(chaveComparada, 'comparacao', maisProximo);
-      posicionarDica(dicaDaCurva, svg, xs[maisProximo]);
+      posicionarDica(dicaDosPatamares, svg, xDaSemana);
     }
     cobertura.addEventListener('pointermove', mostrar);
     cobertura.addEventListener('pointerdown', mostrar);
     cobertura.addEventListener('pointerleave', function (evento) { if (evento.pointerType === 'mouse') { esconder(); } });
     cobertura.addEventListener('pointercancel', esconder);
+  }
+  /* posição do ponto entre os 4 prazos (0 a 3), para escalonar os rótulos */
+  function pontosDaPrevisaoDosPrazos(pontos, indice) {
+    var ordem = 0;
+    for (var i = 0; i < indice; i += 1) { if (pontos[i].prazo) { ordem += 1; } }
+    return ordem;
   }
 
   /* ---------- situação atual ---------- */
@@ -1316,23 +1344,17 @@ main { max-width: 1400px; margin: 0 auto; padding: 28px 40px 40px; }
     }
   }
   var larguraDesenhada = 0;
-  var larguraDosPatamaresDesenhada = 0;
-  var larguraDaCurvaDesenhada = 0;
+  var medidaDosPatamaresDesenhada = '';
   function redesenharGraficos(forcar) {
     var larguraDosGraficos = Math.floor(painelDeGraficos[0].area.clientWidth);
-    if (forcar || larguraDosGraficos !== larguraDesenhada) {
+    if (larguraDosGraficos > 0 && (forcar || larguraDosGraficos !== larguraDesenhada)) {
       larguraDesenhada = larguraDosGraficos;
       for (var i = 0; i < painelDeGraficos.length; i += 1) { desenharGrafico(painelDeGraficos[i]); }
     }
-    var larguraDosPatamares = Math.floor(areaDosPatamares.clientWidth);
-    if (forcar || larguraDosPatamares !== larguraDosPatamaresDesenhada) {
-      larguraDosPatamaresDesenhada = larguraDosPatamares;
+    var medida = Math.floor(areaDosPatamares.clientWidth) + 'x' + window.innerHeight;
+    if (areaDosPatamares.clientWidth > 0 && (forcar || medida !== medidaDosPatamaresDesenhada)) {
+      medidaDosPatamaresDesenhada = medida;
       desenharPatamares();
-    }
-    var larguraDaCurva = Math.floor(areaDaCurva.clientWidth);
-    if (forcar || larguraDaCurva !== larguraDaCurvaDesenhada) {
-      larguraDaCurvaDesenhada = larguraDaCurva;
-      desenharCurva();
     }
   }
   var pedidoDeRedesenho = null;
@@ -1349,7 +1371,6 @@ main { max-width: 1400px; margin: 0 auto; padding: 28px 40px 40px; }
       if (grafico.esconder && !grafico.area.contains(evento.target)) { grafico.esconder(); }
     }
     if (escondeDicaDosPatamares && !areaDosPatamares.contains(evento.target)) { escondeDicaDosPatamares(); }
-    if (escondeDicaDaCurva && !areaDaCurva.contains(evento.target)) { escondeDicaDaCurva(); }
   });
   montarGraficos();
 
@@ -1426,9 +1447,8 @@ main { max-width: 1400px; margin: 0 auto; padding: 28px 40px 40px; }
       }
       if (previsaoGerada) {
         for (var r = 0; r < retangulos.length; r += 1) { preencherRetangulo(retangulos[r]); }
-        desenharPatamares();
       }
-      desenharCurva();
+      desenharPatamares();
     }
     previsao.modelos.forEach(function (modelo) {
       var botao = elemento('button', 'chip', modelo.nome);
@@ -1443,18 +1463,21 @@ main { max-width: 1400px; margin: 0 auto; padding: 28px 40px 40px; }
     escolherModelo(modeloAtual);
   })();
 
-  document.getElementById('gerar').addEventListener('click', function () {
+  function gerarPrevisao() {
     for (var i = 0; i < retangulos.length; i += 1) { preencherRetangulo(retangulos[i]); }
+    var aviso = document.getElementById('aviso-entrada');
     if (contexto) {
-      var aviso = document.getElementById('aviso-entrada');
       aviso.textContent = 'Em 2026, só ' + formatoInteiro.format(contexto.confirmadas) +
         ' casos foram confirmados no Sinan; a previsão parte desse histórico.';
-      aviso.classList.remove('oculto');
+      aviso.classList.remove('invisivel');
     }
     previsaoGerada = true;
+    ligadas.previsao = true;
+    marcarChipsDosPatamares();
     desenharPatamares();
-    desenharCurva();
-  });
+  }
+  document.getElementById('gerar').addEventListener('click', gerarPrevisao);
+  montarChipsDosPatamares();
 
   /* ---------- aba "Como funciona": números vindos do JSON ---------- */
   (function montarComoFunciona() {
@@ -1478,9 +1501,10 @@ main { max-width: 1400px; margin: 0 auto; padding: 28px 40px 40px; }
   })();
 
   /* ---------- abas ---------- */
-  var ABAS = ['como-funciona', 'gerar-previsao'];
+  var ABAS = ['como-funciona', 'gerar-previsao', 'dados-do-modelo'];
   function abaDoEndereco() {
-    return window.location.hash === '#como-funciona' ? 'como-funciona' : 'gerar-previsao';
+    var nome = window.location.hash.replace('#', '');
+    return ABAS.indexOf(nome) >= 0 ? nome : 'gerar-previsao';
   }
   function mostrarAba(nome) {
     for (var i = 0; i < ABAS.length; i += 1) {
@@ -1490,7 +1514,7 @@ main { max-width: 1400px; margin: 0 auto; padding: 28px 40px 40px; }
       botao.tabIndex = ativa ? 0 : -1;
       document.getElementById('painel-' + ABAS[i]).hidden = !ativa;
     }
-    if (nome === 'gerar-previsao') { redesenharGraficos(true); }
+    redesenharGraficos(true);
   }
   function irParaAba(nome, moverFoco) {
     if (abaDoEndereco() !== nome || window.location.hash === '') {
